@@ -1,0 +1,31 @@
+{
+  "name": "excelparser-frontend",
+  "version": "1.0.0",
+  "description": "Front end for ExcelParser.com. Built on NextJS.",
+  "main": "index.js",
+  "dependencies": {
+    "next": "^12.3.1",
+    "react-dom": "^18.2.0",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.1"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youngchingjui/excelparser-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youngchingjui/excelparser-frontend/issues"
+  },
+  "homepage": "https://github.com/youngchingjui/excelparser-frontend#readme"
+}
