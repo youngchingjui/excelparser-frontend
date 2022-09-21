@@ -1,4 +1,5 @@
 import { useRouter } from "next/router"
+import Button from "react-bootstrap/Button"
 
 const Script = () => {
   const router = useRouter()
@@ -24,6 +25,7 @@ const Script = () => {
         </div>
         <div>If notes == &quot;/&quot;, copy 交易类型 into 商品</div>
         <div>Returns the following columns: date, payee, notes, amount</div>
+        <Button>Add next instruction</Button>
       </div>
     </div>
   )
