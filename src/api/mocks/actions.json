@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "mainText": "Decode from GB-18030 to UTF-8"
+    },
+    {
+        "id": 2,
+        "mainText": "Remove first 4 lines"
+    },
+    {
+        "id": 3,
+        "type": "list",
+        "mainText": "Replace headers:",
+        "list": [
+            "\"交易时间\" --> \"date\"",
+            "\"交易对方\" --> \"payee\"",
+            "\"商品\" --> \"notes\"",
+            "\"金额（元）\" --> \"amount\""
+        ]
+    },
+    {
+        "id": 4,
+        "mainText": "Converts date column to actual date format"
+    },
+    {
+        "id": 5,
+        "mainText": "If 收/支 column is \"支出\", then amount is multiplied by-1"
+    },
+    {
+        "id": 6,
+        "mainText": "If notes == \"/\", copy 交易类型 into 商品"
+    },
+    {
+        "id": 7,
+        "mainText": "Returns the following columns: date, payee, notes, amount"
+    }
+]
