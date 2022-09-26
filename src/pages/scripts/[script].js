@@ -55,6 +55,9 @@ const Script = ({ actions }) => {
                 <Action body={`${i.id}. ${i.mainText}`} key={i.id} />
               ))}
             <Button>Add next instruction</Button>
+            <Form method="post" action="/api/parse">
+              <Button type="submit">Download file</Button>
+            </Form>
           </Col>
           <Col xs="8">
             {tableContents && <ExcelTable contents={tableContents} />}
