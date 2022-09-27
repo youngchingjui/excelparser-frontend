@@ -8,7 +8,6 @@ import ExcelTable from "../../components/ExcelTable"
 import Form from "react-bootstrap/Form"
 import Navbar from "react-bootstrap/Navbar"
 import Row from "react-bootstrap/Row"
-import mockHttp from "../../api/Http"
 import { useRouter } from "next/router"
 
 const Script = ({ actions }) => {
@@ -81,7 +80,12 @@ const Script = ({ actions }) => {
 }
 
 export const getServerSideProps = async () => {
-  const actions = await mockHttp("actions")
+  const actions = await new Promise((res) => {
+    setTimeout(async () => {
+      const fetched = await import(`../api/mocks/actions.json`)
+      res(fetched.default)
+    }, 50)
+  })
   return { props: { actions } }
 }
 
