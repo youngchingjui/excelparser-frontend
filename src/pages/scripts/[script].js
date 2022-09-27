@@ -40,6 +40,22 @@ const Script = ({ actions }) => {
     fileReader.readAsText(file)
   }
 
+  const parseData = async (e) => {
+    e.preventDefault
+    const response = await fetch("/api/parse", {
+      method: "POST",
+      body: tableContents,
+    })
+
+    if (!response.ok) {
+      console.error("did not get parsed data")
+      return
+    }
+
+    const jsonData = await response.json()
+    setTableContents(jsonData)
+  }
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -65,10 +81,11 @@ const Script = ({ actions }) => {
               actions.map((i) => (
                 <Action body={`${i.id}. ${i.mainText}`} key={i.id} />
               ))}
-            <Button>Add next instruction</Button>
-            <DownloadButton downloadUrl={downloadUrl}>
+            <Button variant="secondary">Add next instruction</Button>
+            <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
               Download file
             </DownloadButton>
+            <Button onClick={parseData}>Send to server to test parsing</Button>
           </Col>
           <Col xs="8">
             {tableContents && <ExcelTable contents={tableContents} />}

@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap"
 
-const DownloadButton = ({ downloadUrl, children }) => {
+const DownloadButton = ({ downloadUrl, children, ...rest }) => {
   const downloadFile = (e) => {
     e.preventDefault()
     console.log("Downloading file")
@@ -12,7 +12,11 @@ const DownloadButton = ({ downloadUrl, children }) => {
     link.click()
     link.parentNode.removeChild(link)
   }
-  return <Button onClick={downloadFile}>{children}</Button>
+  return (
+    <Button onClick={downloadFile} {...rest}>
+      {children}
+    </Button>
+  )
 }
 
 export default DownloadButton
