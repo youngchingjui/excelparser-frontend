@@ -1,26 +1,38 @@
+import { useEffect, useState } from "react"
 import Action from "../../components/Action"
 import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
+import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
 import Form from "react-bootstrap/Form"
 import Navbar from "react-bootstrap/Navbar"
 import Row from "react-bootstrap/Row"
 import mockHttp from "../../api/Http"
 import { useRouter } from "next/router"
-import { useState } from "react"
 
 const Script = ({ actions }) => {
-  const [tableContents, updateTableContents] = useState(null)
+  const [tableContents, setTableContents] = useState(null)
+  const [downloadUrl, setDownloadUrl] = useState(null)
+
   const router = useRouter()
   const { script } = router.query
+
+  useEffect(() => {
+    // Don't run if tableContents is not yet set
+    if (!tableContents) {
+      return
+    }
+
+    const blob = new Blob([tableContents])
+    setDownloadUrl(window.URL.createObjectURL(blob))
+  }, [tableContents])
 
   let fileReader
 
   const handleFileRead = (e) => {
     const content = fileReader.result
-    updateTableContents(content)
-    console.log(content)
+    setTableContents(content)
   }
 
   const handleChosenFile = (file) => {
@@ -55,9 +67,9 @@ const Script = ({ actions }) => {
                 <Action body={`${i.id}. ${i.mainText}`} key={i.id} />
               ))}
             <Button>Add next instruction</Button>
-            <Form method="post" action="/api/parse">
-              <Button type="submit">Download file</Button>
-            </Form>
+            <DownloadButton downloadUrl={downloadUrl}>
+              Download file
+            </DownloadButton>
           </Col>
           <Col xs="8">
             {tableContents && <ExcelTable contents={tableContents} />}
