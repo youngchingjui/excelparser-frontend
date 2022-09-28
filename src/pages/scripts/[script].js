@@ -18,6 +18,8 @@ const Script = ({ actions }) => {
   const { script } = router.query
 
   useEffect(() => {
+    // Update the download URL whenever tableContents changes
+
     // Don't run if tableContents is not yet set
     if (!tableContents) {
       return
@@ -45,7 +47,7 @@ const Script = ({ actions }) => {
     e.preventDefault
     const response = await fetch("/api/parse", {
       method: "POST",
-      body: tableContents,
+      body: JSON.stringify({ actions, tableContents }),
     })
 
     if (!response.ok) {
@@ -79,10 +81,7 @@ const Script = ({ actions }) => {
                 ></Form.Control>
               </Form.Group>
             </Form>
-            {actions &&
-              actions.map((i) => (
-                <Action body={`${i.id}. ${i.mainText}`} key={i.id} />
-              ))}
+            {actions && actions.map((e) => <Action action={e} key={e.id} />)}
             <Button variant="secondary">Add next instruction</Button>
             <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
               Download file

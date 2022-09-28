@@ -7,6 +7,7 @@ const handler = (req, res) => {
   if (req.method === "POST") {
     const { body } = req
 
+    const { actions, tableContents } = JSON.parse(body)
     // Replace headers
     const headersDict = {
       交易日期: "date",
@@ -16,7 +17,7 @@ const handler = (req, res) => {
       交易地点: "notes",
     }
 
-    const readable_stream = Readable.from(body)
+    const readable_stream = Readable.from(tableContents)
     let result = []
     readable_stream.pipe(
       csvParser({
@@ -42,9 +43,6 @@ const handler = (req, res) => {
 
           // Remove "支付宝-" or "财付通-" from `payee` and `notes` columns.
           // Add to new `tags` column
-          let updatedPayee = row.payee
-          let updatedNotes = row.notes
-          let updatedTag = row.tag
 
           if (row.payee.startsWith("支付宝")) {
             row.tags = "支付宝"
@@ -83,9 +81,13 @@ const handler = (req, res) => {
           }
 
           // If payee is missing text, fill in with "notes"
-          if (row.payee == "") {
-            row.payee = row.notes
+          if (actions[4].type == "if") {
+            const action = actions[4]
+            if (row[action.logic.if.subject] == action.logic.if.value) {
+              row[action.logic.then.subject] = row[action.logic.then.value]
+            }
           }
+
           // If both `payee` and `notes` are missing in text and `摘要` column is `利息存入`, then fill `payee` as "中国建设银行股份有限公司上海分行运行中心" and `notes` as "利息存入"
 
           if (row.payee == "" && row.notes == "" && row.摘要 == "利息存入") {

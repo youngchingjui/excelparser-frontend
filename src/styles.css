@@ -1,0 +1,13 @@
+.select-column {
+    width: fit-content;
+    display: inline;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.control-column {
+    width: fit-content;
+    display: inline;
+    margin-left: 3px;
+    margin-right: 3px;
+}

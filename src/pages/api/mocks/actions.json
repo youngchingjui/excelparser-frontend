@@ -25,6 +25,18 @@
     },
     {
         "id": 6,
+        "type": "if",
+        "logic": {
+            "if": {
+                "subject": "payee",
+                "comparison": "==",
+                "value": ""
+            },
+            "then": {
+                "subject": "payee",
+                "value": "notes"
+            }
+        },
         "mainText": "If \"payee\" is missing text, fill in with text from \"notes\""
     },
     {
