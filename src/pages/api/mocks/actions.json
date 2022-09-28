@@ -1,37 +1,54 @@
 [
     {
         "id": 1,
-        "mainText": "Decode from GB-18030 to UTF-8"
-    },
-    {
-        "id": 2,
-        "mainText": "Remove first 4 lines"
+        "mainText": "Remove first 3 lines"
     },
     {
         "id": 3,
         "type": "list",
         "mainText": "Replace headers:",
         "list": [
-            "\"交易时间\" --> \"date\"",
-            "\"交易对方\" --> \"payee\"",
-            "\"商品\" --> \"notes\"",
-            "\"金额（元）\" --> \"amount\""
+            "\"交易日期\" --> \"date\"",
+            "\"支出\" --> \"outflow\"",
+            "\"收入\" --> \"inflow\"",
+            "\"对方户名\" --> \"payee\"",
+            "\"交易地点\" --> \"notes\""
         ]
     },
     {
         "id": 4,
-        "mainText": "Converts date column to actual date format"
+        "mainText": "Combine \"outflow\" and \"inflow\" columns into 1 column, called \"amount\""
     },
     {
         "id": 5,
-        "mainText": "If 收/支 column is \"支出\", then amount is multiplied by-1"
+        "mainText": "Remove \"支付宝-\" or \"财付通-\" from both \"payee\" and \"notes\" columns and add them to a new \"tags\" column"
     },
     {
         "id": 6,
-        "mainText": "If notes == \"/\", copy 交易类型 into 商品"
+        "mainText": "If \"payee\" is missing text, fill in with text from \"notes\""
     },
     {
         "id": 7,
-        "mainText": "Returns the following columns: date, payee, notes, amount"
+        "mainText": "If both \"payee\" and \"notes\" are missing text and \"摘要\" column is \"利息存入\", then fill payee as \"中国建设银行股份有限公司上海分行运行中心\" and \"notes\" as \"利息存入\""
+    },
+    {
+        "id": 8,
+        "mainText": "If text in payee and notes are the same, remove text in notes"
+    },
+    {
+        "id": 9,
+        "mainText": "If notes is empty, then replace notes with \"ATM存款\" (only after notes is copied to payee)"
+    },
+    {
+        "id": 10,
+        "mainText": "If 摘要 is not \"消费\" and \"摘要\" does not equal notes, then append 摘要 text to front of existing notes (after removing tags)"
+    },
+    {
+        "id": 11,
+        "mainText": "Remove any empty rows that do not include a date"
+    },
+    {
+        "id": 12,
+        "mainText": "Returns the following columns: date, payee, notes, amount, tags"
     }
 ]

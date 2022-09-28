@@ -35,6 +35,7 @@ const Script = ({ actions }) => {
   }
 
   const handleChosenFile = (file) => {
+    // TODO: handle if user cancel's file loading
     fileReader = new FileReader()
     fileReader.onloadend = handleFileRead
     fileReader.readAsText(file)
@@ -66,6 +67,7 @@ const Script = ({ actions }) => {
       <Container>
         <Row>
           <Col>
+            <Button onClick={parseData}>Send to server to test parsing</Button>
             <Form>
               <Form.Group>
                 <Form.Control
@@ -85,7 +87,6 @@ const Script = ({ actions }) => {
             <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
               Download file
             </DownloadButton>
-            <Button onClick={parseData}>Send to server to test parsing</Button>
           </Col>
           <Col xs="8">
             {tableContents && <ExcelTable contents={tableContents} />}
