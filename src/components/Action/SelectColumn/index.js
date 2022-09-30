@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form"
 
-const SelectColumn = ({ options }) => {
+const SelectColumn = ({ options, ...props }) => {
   return (
-    <Form.Select size="sm" className="select-column">
+    <Form.Select size="sm" className="select-column" {...props}>
       {options.map((e, i) => (
         <option value={e} key={i}>
           {e}

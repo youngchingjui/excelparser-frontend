@@ -1,16 +1,24 @@
-import { useActionsContext } from "../../context/ActionsContext"
+import Button from "react-bootstrap/Button"
 
-const TestComponent = () => {
-  const { actions, setActions } = useActionsContext()
-
-  const updateButton = (e) => {
+const TestComponent = ({ actions, sheets, setSheets }) => {
+  const parseData = async (e) => {
     e.preventDefault
-    setActions({ id: 1 })
+    const response = await fetch("/api/parse", {
+      method: "POST",
+      body: JSON.stringify({ actions, sheets }),
+    })
+
+    if (!response.ok) {
+      console.error("did not get parsed data")
+      return
+    }
+
+    const jsonData = await response.json()
+    setSheets(jsonData)
   }
   return (
     <>
-      <div>This is a test component</div>
-      <button onClick={updateButton}>{actions.id}</button>
+      <Button onClick={parseData}>Test Button</Button>
     </>
   )
 }

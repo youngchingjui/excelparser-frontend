@@ -26,16 +26,23 @@
     {
         "id": 6,
         "type": "if",
-        "logic": {
-            "if": {
-                "subject": "payee",
-                "comparison": "==",
-                "value": ""
-            },
-            "then": {
-                "subject": "payee",
-                "value": "notes"
+        "if": [
+            {
+                "a": {
+                    "type": "column",
+                    "value": "inflow"
+                },
+                "relationalOperator": "==",
+                "b": {
+                    "type": "text",
+                    "value": "tes text"
+                }
             }
+        ],
+        "then": {
+            "type": "assignment",
+            "a": "payee",
+            "b": "notes"
         },
         "mainText": "If \"payee\" is missing text, fill in with text from \"notes\""
     },
