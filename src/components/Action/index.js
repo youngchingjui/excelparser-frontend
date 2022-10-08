@@ -1,85 +1,48 @@
-import { useEffect, useState } from "react"
 import Card from "react-bootstrap/Card"
-import Form from "react-bootstrap/Form"
+import IfClause from "./IfClause"
 import SelectColumn from "./SelectColumn"
 
-const Action = ({
-  action,
-  id,
-  activeAction,
-  setActiveAction,
-  setSingleAction,
-}) => {
-  const [isActiveAction, setIsActiveAction] = useState(false)
-
-  // Update isActiveAction
-  useEffect(() => {
-    if (id == activeAction) {
-      setIsActiveAction(true)
-    } else {
-      setIsActiveAction(false)
-    }
-  }, [id, activeAction, setActiveAction])
-
-  const handleCardClick = (e) => {
-    // Set this card as the "active" action
-    setActiveAction(id)
-
-    // TODO: Request sheet[id] from server, given this selected action and all before it
-    // TODO: Load sheet[id] into ExcelTable component
-  }
-
-  const updateValue = (e) => {
-    e.preventDefault
+const Action = ({ action, id, setSingleAction, ...props }) => {
+  const setIfClause = (index, value) => {
     const actionCopy = { ...action }
-    actionCopy.if[0].b.value = e.target.value
+    actionCopy.if[index] = value
     setSingleAction(actionCopy)
   }
 
   return (
-    <>
-      <Card
-        onClick={handleCardClick}
-        bg={isActiveAction && "primary"}
-        text={isActiveAction && "white"}
-      >
-        {action.type == "if" && (
-          <Card.Body>
-            <span>
-              If
-              <SelectColumn
-                id="a"
-                options={["date", "inflow", "outflow", "payee", "notes"]}
-                value={action.if[0].a.value}
+    <Card {...props}>
+      {action.type == "if" && (
+        <Card.Body>
+          <div id="if">
+            If
+            {action.if.map((ifClause, index) => (
+              <IfClause
+                index={index}
+                ifClause={ifClause}
+                key={index}
+                setIfClause={(value) => setIfClause(index, value)}
               />
-              ==
-              <Form.Control
-                id="if-value"
-                size="sm"
-                placeholder="null"
-                className="control-column"
-                value={action.if[0].b.value}
-                onChange={updateValue}
-              ></Form.Control>
-              ,
-            </span>
-            <span>
-              Then
-              <SelectColumn
-                id="then-subject"
-                options={["date", "inflow", "outflow", "payee", "notes"]}
-              />
-              =
-              <SelectColumn
-                id="then-value"
-                options={["date", "inflow", "outflow", "payee", "notes"]}
-              />
-            </span>
-          </Card.Body>
-        )}
-        <Card.Body>{id + " " + action.mainText}</Card.Body>
-      </Card>
-    </>
+            ))}
+            ,
+          </div>
+          <span>
+            Then
+            <SelectColumn
+              id="then-subject"
+              options={["date", "inflow", "outflow", "payee", "notes"]}
+              value={action.then.a}
+            />
+            =
+            <SelectColumn
+              id="then-value"
+              options={["date", "inflow", "outflow", "payee", "notes"]}
+              value={action.then.b}
+            />
+          </span>
+        </Card.Body>
+      )}
+      <Card.Body>{id + " " + action.mainText}</Card.Body>
+    </Card>
   )
 }
 

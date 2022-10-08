@@ -1,13 +1,9 @@
+import { useEffect, useState } from "react"
 import Action from "../Action"
 import Button from "react-bootstrap/Button"
-import { useEffect } from "react"
 
-const ActionsList = ({
-  actions,
-  setActions,
-  activeAction,
-  setActiveAction,
-}) => {
+const ActionsList = ({ actions, setActions }) => {
+  const [activeAction, setActiveAction] = useState(0)
   // Load actions from database into state
   useEffect(() => {
     setTimeout(async () => {
@@ -16,25 +12,29 @@ const ActionsList = ({
     }, 1000)
   }, [setActions])
 
-  const setSingleAction = (i, action) => {
+  const setSingleAction = (index, action) => {
     const actionsCopy = [...actions]
-    actionsCopy[i] = action
+    actionsCopy[index] = action
     setActions(actionsCopy)
   }
+
+  // TODO: Request sheet[id] from server, given this selected action and all before it
+  // TODO: Load sheet[id] into ExcelTable component
 
   return (
     <>
       {actions &&
-        actions.map((e, i) => (
+        actions.map((action, index) => (
           <Action
-            action={e}
-            key={i}
-            id={i}
-            activeAction={activeAction}
-            setActiveAction={setActiveAction}
-            setSingleAction={(i) => {
-              setSingleAction(i, e)
+            action={action}
+            key={index}
+            id={index}
+            setSingleAction={(index) => {
+              setSingleAction(index, action)
             }}
+            bg={activeAction == index && "primary"}
+            text={activeAction == index && "white"}
+            onClick={() => setActiveAction(index)}
           />
         ))}
       <Button variant="secondary">Add next instruction</Button>
