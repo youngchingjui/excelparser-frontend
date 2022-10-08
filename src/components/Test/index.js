@@ -16,11 +16,7 @@ const TestComponent = ({ actions, sheets, setSheets }) => {
     const jsonData = await response.json()
     setSheets(jsonData)
   }
-  return (
-    <>
-      <Button onClick={parseData}>Test Button</Button>
-    </>
-  )
+  return <Button onClick={parseData}>Test Button</Button>
 }
 
 export default TestComponent

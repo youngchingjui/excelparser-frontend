@@ -1,14 +1,11 @@
 import Form from "react-bootstrap/Form"
-import { useSheetContext } from "../../context/SheetContext"
 
-const FileUploadButton = () => {
-  const { setSheet } = useSheetContext()
-
+const FileUploadButton = ({ setSheets }) => {
   let fileReader
 
   const handleFileRead = (e) => {
     const content = fileReader.result
-    setSheet(content)
+    setSheets([content])
   }
 
   const handleChosenFile = (file) => {

@@ -25,7 +25,7 @@ const ThenClause = ({ action, setThenClause, ...props }) => {
       <SelectColumn
         id="then-value"
         options={["date", "inflow", "outflow", "payee", "notes"]}
-        value={action.then.b}
+        value={then.b}
         onChange={(e) => setSingleForm("b", e.target.value)}
       />
     </span>

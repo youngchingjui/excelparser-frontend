@@ -33,7 +33,7 @@ const Script = () => {
               sheets={sheets}
               setSheets={setSheets}
             />
-            <FileUploadButton />
+            <FileUploadButton setSheets={setSheets} />
             <ActionsList
               actions={actions}
               setActions={setActions}
@@ -45,7 +45,7 @@ const Script = () => {
             </DownloadButton>
           </Col>
           <Col xs="8">
-            <ExcelTable setDownloadUrl={setDownloadUrl} />
+            <ExcelTable sheets={sheets} setDownloadUrl={setDownloadUrl} />
           </Col>
         </Row>
       </Container>

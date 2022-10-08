@@ -7,7 +7,7 @@ const handler = (req, res) => {
   if (req.method === "POST") {
     const { body } = req
 
-    const { actions, tableContents } = JSON.parse(body)
+    const { actions, sheets } = JSON.parse(body)
     // Replace headers
     const headersDict = {
       交易日期: "date",
@@ -17,7 +17,7 @@ const handler = (req, res) => {
       交易地点: "notes",
     }
 
-    const readable_stream = Readable.from(tableContents)
+    const readable_stream = Readable.from(sheets)
     let result = []
     readable_stream.pipe(
       csvParser({
@@ -83,8 +83,8 @@ const handler = (req, res) => {
           // If payee is missing text, fill in with "notes"
           if (actions[4].type == "if") {
             const action = actions[4]
-            if (row[action.logic.if.subject] == action.logic.if.value) {
-              row[action.logic.then.subject] = row[action.logic.then.value]
+            if (row[action.if[0].a.value] == action.if[0].b.value) {
+              row[action.then.a] = row[action.then.b]
             }
           }
 
