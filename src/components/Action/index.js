@@ -1,11 +1,17 @@
 import Card from "react-bootstrap/Card"
 import IfClause from "./IfClause"
-import SelectColumn from "./SelectColumn"
+import ThenClause from "./ThenClause"
 
 const Action = ({ action, id, setSingleAction, ...props }) => {
   const setIfClause = (index, value) => {
     const actionCopy = { ...action }
     actionCopy.if[index] = value
+    setSingleAction(actionCopy)
+  }
+
+  const setThenClause = (value) => {
+    const actionCopy = { ...action }
+    actionCopy.then = value
     setSingleAction(actionCopy)
   }
 
@@ -27,17 +33,7 @@ const Action = ({ action, id, setSingleAction, ...props }) => {
           </div>
           <span>
             Then
-            <SelectColumn
-              id="then-subject"
-              options={["date", "inflow", "outflow", "payee", "notes"]}
-              value={action.then.a}
-            />
-            =
-            <SelectColumn
-              id="then-value"
-              options={["date", "inflow", "outflow", "payee", "notes"]}
-              value={action.then.b}
-            />
+            <ThenClause action={action} setThenClause={setThenClause} />
           </span>
         </Card.Body>
       )}

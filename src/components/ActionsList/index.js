@@ -29,8 +29,8 @@ const ActionsList = ({ actions, setActions }) => {
             action={action}
             key={index}
             id={index}
-            setSingleAction={(index) => {
-              setSingleAction(index, action)
+            setSingleAction={(value) => {
+              setSingleAction(index, value)
             }}
             bg={activeAction == index && "primary"}
             text={activeAction == index && "white"}
