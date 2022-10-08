@@ -14,7 +14,7 @@ const TestComponent = ({ actions, sheets, setSheets }) => {
     }
 
     const jsonData = await response.json()
-    setSheets(jsonData)
+    setSheets([jsonData])
   }
   return <Button onClick={parseData}>Test Button</Button>
 }
