@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container"
 import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
 import FileUploadButton from "../../components/FileUploadButton"
-import Navbar from "react-bootstrap/Navbar"
+import Header from "../../components/Header"
 import Row from "react-bootstrap/Row"
 import TestComponent from "../../components/Test"
 import { useRouter } from "next/router"
@@ -20,11 +20,7 @@ const Script = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand>Excel Parser</Navbar.Brand>
-        </Container>
-      </Navbar>
+      <Header />
       <Container>
         <Row>
           <Col>
