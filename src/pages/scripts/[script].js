@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import ActionsList from "../../components/ActionsList"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
@@ -7,8 +8,8 @@ import FileUploadButton from "../../components/FileUploadButton"
 import Header from "../../components/Header"
 import Row from "react-bootstrap/Row"
 import TestComponent from "../../components/Test"
+import axios from "axios"
 import { useRouter } from "next/router"
-import { useState } from "react"
 
 const Script = () => {
   const [downloadUrl, setDownloadUrl] = useState(null)
@@ -17,6 +18,19 @@ const Script = () => {
   const [activeAction, setActiveAction] = useState(0)
   const router = useRouter()
   const { script } = router.query
+
+  // Load actions from database into state
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios(`/api/scripts/${script}`, {
+        method: "GET",
+      })
+      const { actions } = response.data
+      setActions(actions)
+    }
+
+    fetchData().catch(console.error)
+  }, [setActions, script])
 
   return (
     <>

@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react"
 import Action from "../Action"
 import Button from "react-bootstrap/Button"
+import { useState } from "react"
 
 const ActionsList = ({ actions, setActions }) => {
   const [activeAction, setActiveAction] = useState(0)
-  // Load actions from database into state
-  useEffect(() => {
-    setTimeout(async () => {
-      const fetched = await import(`../../pages/api/mocks/actions.json`)
-      setActions(fetched.default)
-    }, 1000)
-  }, [setActions])
 
   const setSingleAction = (index, action) => {
     const actionsCopy = [...actions]

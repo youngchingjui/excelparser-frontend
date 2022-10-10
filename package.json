@@ -4,6 +4,7 @@
   "description": "Front end for ExcelParser.com. Built on NextJS.",
   "main": "index.js",
   "dependencies": {
+    "axios": "^1.1.2",
     "bootstrap": "^5.2.1",
     "csv-parser": "^3.0.0",
     "mongodb": "^4.10.0",
