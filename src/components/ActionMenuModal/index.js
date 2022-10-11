@@ -1,12 +1,20 @@
 import { Card, Modal } from "react-bootstrap"
 
+const actionList = [
+  {
+    type: "remove rows",
+    mainText: "Remove x rows",
+  },
+  {
+    type: "remove columns",
+    mainText: "Remove x columns",
+  },
+]
+
 const ActionMenuModal = ({ actions, setActions, handleClose, ...props }) => {
-  const addAction = () => {
-    // add this action to the action list state
-    actions.push({
-      type: "remove rows",
-      mainText: "Remove x rows",
-    })
+  // add this action to the action list state
+  const addAction = (actionObject) => {
+    actions.push(actionObject)
     setActions(actions)
 
     // close modal
@@ -19,8 +27,13 @@ const ActionMenuModal = ({ actions, setActions, handleClose, ...props }) => {
         <Modal.Title>Add action</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Card onClick={addAction}>Remove x rows</Card>
-        <Card>Remove x columns</Card>
+        {actionList.map((e, index) => {
+          return (
+            <Card key={index} onClick={() => addAction(e)}>
+              {e.mainText}
+            </Card>
+          )
+        })}
       </Modal.Body>
     </Modal>
   )
