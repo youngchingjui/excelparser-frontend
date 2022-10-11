@@ -2,22 +2,26 @@ import Container from "react-bootstrap/Container"
 import Header from "../../components/Header"
 import Link from "next/link"
 import clientPromise from "../../lib/mongodb"
-import getUID from "../../helper/uid"
+import { useNewObjectId } from "../../hooks"
 
-const scripts = ({ scripts }) => {
+const ScriptsPage = ({ scripts }) => {
+  const objectId = useNewObjectId()
+
   return (
     <>
       <Header />
       <Container>
         <h1>Scripts</h1>
-        <Link
-          href={{
-            pathname: "/scripts/[script]",
-            query: { script: getUID(6) },
-          }}
-        >
-          Create your own script
-        </Link>
+        {objectId && (
+          <Link
+            href={{
+              pathname: "/scripts/[script]",
+              query: { script: objectId },
+            }}
+          >
+            Create your own script
+          </Link>
+        )}
         {scripts.map((e) => {
           return (
             <div key={e._id}>
@@ -43,11 +47,16 @@ export async function getStaticProps() {
     const db = client.db("excelParser")
 
     const scripts = await db.collection("scripts").find().toArray()
-    return { props: { scripts: JSON.parse(JSON.stringify(scripts)) } }
+    return {
+      props: {
+        scripts: JSON.parse(JSON.stringify(scripts)),
+      },
+      revalidate: 10,
+    }
   } catch (e) {
     console.error(e)
   }
   return { props: {} }
 }
 
-export default scripts
+export default ScriptsPage

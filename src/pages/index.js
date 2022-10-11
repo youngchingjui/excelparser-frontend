@@ -1,9 +1,10 @@
 import Container from "react-bootstrap/Container"
 import Header from "../components/Header"
 import Link from "next/link"
-import getUID from "../helper/uid"
+import { useNewObjectId } from "../hooks"
 
 const HomePage = () => {
+  const objectId = useNewObjectId()
   return (
     <>
       <Header />
@@ -17,18 +18,24 @@ const HomePage = () => {
           <Link href="/scripts">View list of scripts</Link>
         </div>
         <div>
-          <Link
-            href={{
-              pathname: "/scripts/[script]",
-              query: { script: getUID(6) },
-            }}
-          >
-            Create your own script
-          </Link>
+          {objectId && (
+            <Link
+              href={{
+                pathname: "/scripts/[script]",
+                query: { script: objectId },
+              }}
+            >
+              Create your own script
+            </Link>
+          )}
         </div>
       </Container>
     </>
   )
+}
+
+export async function getStaticProps(context) {
+  return { props: {}, revalidate: 10 }
 }
 
 export default HomePage
