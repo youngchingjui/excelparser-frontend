@@ -1,4 +1,4 @@
-import ActionCard from "../Action"
+import ActionCard from "../ActionCard"
 import { useState } from "react"
 
 const ActionsList = ({ actions, setActions }) => {

@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card"
-import IfClause from "./IfClause"
-import ThenClause from "./ThenClause"
+import IfClause from "../Action/IfClause"
+import ThenClause from "../Action/ThenClause"
 
 const ActionCard = ({ action, id, setSingleAction, ...props }) => {
   const setIfClause = (index, value) => {
