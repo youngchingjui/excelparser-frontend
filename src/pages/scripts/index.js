@@ -27,7 +27,7 @@ const scripts = ({ scripts }) => {
                   query: { script: e._id },
                 }}
               >
-                {e.name}
+                {e.name ? e.name : e._id}
               </Link>
             </div>
           )
