@@ -1,5 +1,4 @@
 import Action from "../Action"
-import Button from "react-bootstrap/Button"
 import { useState } from "react"
 
 const ActionsList = ({ actions, setActions }) => {
@@ -30,7 +29,6 @@ const ActionsList = ({ actions, setActions }) => {
             onClick={() => setActiveAction(index)}
           />
         ))}
-      <Button variant="secondary">Add next instruction</Button>
     </>
   )
 }

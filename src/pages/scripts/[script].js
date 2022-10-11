@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
+import ActionMenuModal from "../../components/ActionMenuModal"
 import ActionsList from "../../components/ActionsList"
+import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import DownloadButton from "../../components/DownloadButton"
@@ -16,6 +18,7 @@ const Script = () => {
   const [actions, setActions] = useState([])
   const [sheets, setSheets] = useState([])
   const [activeAction, setActiveAction] = useState(0)
+  const [modalShow, setModalShow] = useState(false)
   const router = useRouter()
   const { script } = router.query
 
@@ -49,6 +52,13 @@ const Script = () => {
               setActions={setActions}
               activeAction={activeAction}
               setActiveAction={setActiveAction}
+            />
+            <Button variant="secondary" onClick={() => setModalShow(true)}>
+              Add action
+            </Button>
+            <ActionMenuModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
             />
             <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
               Download file
