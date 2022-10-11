@@ -22,6 +22,7 @@ const Script = () => {
   const router = useRouter()
   const { script } = router.query
 
+  const handleClose = () => setModalShow(false)
   // Load actions from database into state
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +30,7 @@ const Script = () => {
         method: "GET",
       })
       const { actions } = response.data
-      setActions(actions)
+      setActions(actions || [])
     }
 
     fetchData().catch(console.error)
@@ -58,7 +59,9 @@ const Script = () => {
             </Button>
             <ActionMenuModal
               show={modalShow}
-              onHide={() => setModalShow(false)}
+              handleClose={handleClose}
+              actions={actions}
+              setActions={setActions}
             />
             <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
               Download file
