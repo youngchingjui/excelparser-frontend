@@ -1,4 +1,4 @@
-import Action from "../Action"
+import ActionCard from "../Action"
 import { useState } from "react"
 
 const ActionsList = ({ actions, setActions }) => {
@@ -17,7 +17,7 @@ const ActionsList = ({ actions, setActions }) => {
     <>
       {actions &&
         actions.map((action, index) => (
-          <Action
+          <ActionCard
             action={action}
             key={index}
             id={index}

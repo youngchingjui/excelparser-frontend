@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card"
 import IfClause from "./IfClause"
 import ThenClause from "./ThenClause"
 
-const Action = ({ action, id, setSingleAction, ...props }) => {
+const ActionCard = ({ action, id, setSingleAction, ...props }) => {
   const setIfClause = (index, value) => {
     const actionCopy = { ...action }
     actionCopy.if[index] = value
@@ -42,4 +42,4 @@ const Action = ({ action, id, setSingleAction, ...props }) => {
   )
 }
 
-export default Action
+export default ActionCard
