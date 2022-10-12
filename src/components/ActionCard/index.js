@@ -1,43 +1,34 @@
+import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
-import IfClause from "../Action/IfClause"
-import ThenClause from "../Action/ThenClause"
+import Col from "react-bootstrap/Col"
+import Container from "react-bootstrap/Container"
+import IfThenCard from "../Action/IfThenCard"
+import Row from "react-bootstrap/Row"
 
-const ActionCard = ({ action, id, setSingleAction, ...props }) => {
-  const setIfClause = (index, value) => {
-    const actionCopy = { ...action }
-    actionCopy.if[index] = value
-    setSingleAction(actionCopy)
-  }
-
-  const setThenClause = (value) => {
-    const actionCopy = { ...action }
-    actionCopy.then = value
-    setSingleAction(actionCopy)
-  }
-
+const ActionCard = ({
+  action,
+  id,
+  setSingleAction,
+  deleteAction,
+  ...props
+}) => {
   return (
     <Card {...props}>
-      {action.type == "if" && (
-        <Card.Body>
-          <div id="if">
-            If
-            {action.if.map((ifClause, index) => (
-              <IfClause
-                index={index}
-                ifClause={ifClause}
-                key={index}
-                setIfClause={(value) => setIfClause(index, value)}
-              />
-            ))}
-            ,
-          </div>
-          <span>
-            Then
-            <ThenClause action={action} setThenClause={setThenClause} />
-          </span>
-        </Card.Body>
-      )}
-      <Card.Body>{id + " " + action.mainText}</Card.Body>
+      <Card.Body>
+        {action.type == "if" && (
+          <IfThenCard action={action} setSingleAction={setSingleAction} />
+        )}
+        <Container>
+          <Row>
+            <Col>{id + " " + action.mainText}</Col>
+            <Col xs={1}>
+              <Button variant="outline-danger" onClick={deleteAction}>
+                D
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </Card.Body>
     </Card>
   )
 }

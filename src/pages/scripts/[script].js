@@ -8,33 +8,23 @@ import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
 import FileUploadButton from "../../components/FileUploadButton"
 import Header from "../../components/Header"
+import { ObjectId } from "mongodb"
 import Row from "react-bootstrap/Row"
 import TestComponent from "../../components/Test"
-import axios from "axios"
-import { useRouter } from "next/router"
+import clientPromise from "../../lib/mongodb"
 
-const Script = () => {
+const ScriptPage = (props) => {
   const [downloadUrl, setDownloadUrl] = useState(null)
   const [actions, setActions] = useState([])
   const [sheets, setSheets] = useState([])
   const [activeAction, setActiveAction] = useState(0)
   const [modalShow, setModalShow] = useState(false)
-  const router = useRouter()
-  const { script } = router.query
 
   const handleClose = () => setModalShow(false)
-  // Load actions from database into state
+  // Load actions into state
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios(`/api/scripts/${script}`, {
-        method: "GET",
-      })
-      const { actions } = response.data
-      setActions(actions || [])
-    }
-
-    fetchData().catch(console.error)
-  }, [setActions, script])
+    setActions(props.actions || [])
+  }, [setActions, props.actions])
 
   return (
     <>
@@ -76,4 +66,43 @@ const Script = () => {
   )
 }
 
-export default Script
+export async function getStaticProps({ params: { script } }) {
+  try {
+    const client = await clientPromise
+    const db = client.db("excelParser")
+
+    const oid = new ObjectId(script)
+    const { actions } = await db.collection("scripts").findOne({ _id: oid })
+
+    return { props: { actions: actions || [] } }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export async function getStaticPaths() {
+  try {
+    const client = await clientPromise
+    const db = client.db("excelParser")
+
+    const actionsList = await db.collection("scripts").find()
+    const allActions = await actionsList.toArray()
+
+    const paths = allActions.map((e) => {
+      return {
+        params: {
+          script: e._id.toString(),
+        },
+      }
+    })
+
+    return {
+      paths,
+      fallback: true,
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export default ScriptPage

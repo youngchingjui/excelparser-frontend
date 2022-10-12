@@ -10,6 +10,12 @@ const ActionsList = ({ actions, setActions }) => {
     setActions(actionsCopy)
   }
 
+  const deleteAction = (index) => {
+    const actionsCopy = [...actions]
+    actionsCopy.splice(index, 1)
+    setActions(actionsCopy)
+  }
+
   // TODO: Request sheet[id] from server, given this selected action and all before it
   // TODO: Load sheet[id] into ExcelTable component
 
@@ -24,6 +30,7 @@ const ActionsList = ({ actions, setActions }) => {
             setSingleAction={(value) => {
               setSingleAction(index, value)
             }}
+            deleteAction={() => deleteAction(index)}
             bg={activeAction == index && "primary"}
             text={activeAction == index && "white"}
             onClick={() => setActiveAction(index)}
