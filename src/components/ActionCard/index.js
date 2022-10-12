@@ -6,6 +6,21 @@ import Row from "react-bootstrap/Row"
 
 import Action from "../Action"
 
+const ActionDispatch = ({ action, setSingleAction }) => {
+  switch (action.type) {
+    case "if":
+      return <Action.IfThen action={action} setSingleAction={setSingleAction} />
+
+    case "removeRows":
+      return (
+        <Action.RemoveRows action={action} setSingleAction={setSingleAction} />
+      )
+
+    default:
+      return action.mainText
+  }
+}
+
 const ActionCard = ({
   action,
   id,
@@ -18,20 +33,7 @@ const ActionCard = ({
       <Card.Body>
         <Container>
           <Row>
-            {action.type == "if" && (
-              <Action.IfThen
-                action={action}
-                setSingleAction={setSingleAction}
-              />
-            )}
-            {action.type == "removeRows" && (
-              <Action.RemoveRows
-                initialValue={action.value}
-                action={action}
-                setSingleAction={setSingleAction}
-              />
-            )}
-            <Col>{id + " " + action.mainText}</Col>
+            <Col>{ActionDispatch({ action, setSingleAction })}</Col>
             <Col xs={1}>
               <Button variant="outline-danger" onClick={deleteAction}>
                 D
