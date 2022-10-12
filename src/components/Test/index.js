@@ -1,22 +1,23 @@
+import axios from "axios"
 import Button from "react-bootstrap/Button"
 
 const TestComponent = ({ actions, sheets, setSheets }) => {
   const parseData = async (e) => {
     e.preventDefault
-    const response = await fetch("/api/parse", {
+    const response = await axios({
+      url: "/api/parse",
       method: "POST",
-      body: JSON.stringify({ actions, sheets }),
+      data: { actions, sheets },
     })
 
-    if (!response.ok) {
+    if (response.status != 200) {
       console.error("did not get parsed data")
       return
     }
 
-    const jsonData = await response.json()
-    setSheets([jsonData])
+    setSheets([response.data])
   }
-  return <Button onClick={parseData}>Test Button</Button>
+  return <Button onClick={parseData}>Parse</Button>
 }
 
 export default TestComponent

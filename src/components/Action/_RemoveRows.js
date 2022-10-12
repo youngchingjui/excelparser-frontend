@@ -8,7 +8,12 @@ const _RemoveRows = ({ action, setSingleAction }) => {
   }
   return (
     <div id="removeRows">
-      Remove <Action.TextField value={action.value} onChange={handleChange} />{" "}
+      Remove first
+      <Action.TextField
+        value={action.value}
+        onChange={handleChange}
+        type="number"
+      />
       rows
     </div>
   )
