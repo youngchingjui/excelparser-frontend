@@ -1,6 +1,7 @@
-import Container from "react-bootstrap/Container"
-import Header from "../components/Header"
 import Link from "next/link"
+import Container from "react-bootstrap/Container"
+
+import Header from "../components/Header"
 import { useNewObjectId } from "../hooks"
 
 const HomePage = () => {

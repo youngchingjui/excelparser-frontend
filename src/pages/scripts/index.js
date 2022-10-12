@@ -1,8 +1,9 @@
-import Container from "react-bootstrap/Container"
-import Header from "../../components/Header"
 import Link from "next/link"
-import clientPromise from "../../lib/mongodb"
+import Container from "react-bootstrap/Container"
+
+import Header from "../../components/Header"
 import { useNewObjectId } from "../../hooks"
+import clientPromise from "../../lib/mongodb"
 
 const ScriptsPage = ({ scripts }) => {
   const objectId = useNewObjectId()

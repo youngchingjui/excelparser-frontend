@@ -1,5 +1,6 @@
-import ActionCard from "../ActionCard"
 import { useState } from "react"
+
+import ActionCard from "../ActionCard"
 
 const ActionsList = ({ actions, setActions }) => {
   const [activeAction, setActiveAction] = useState(0)

@@ -2,8 +2,9 @@ import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
-import IfThenCard from "../Action/IfThenCard"
 import Row from "react-bootstrap/Row"
+
+import IfThenCard from "../Action/IfThenCard"
 
 const ActionCard = ({
   action,
