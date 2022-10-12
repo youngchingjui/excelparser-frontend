@@ -1,6 +1,6 @@
-import SelectColumn from "../SelectColumn"
+import Action from "."
 
-const ThenClause = ({ action, setThenClause, ...props }) => {
+const _ThenClause = ({ action, setThenClause, ...props }) => {
   const { then } = action
 
   const setSingleForm = (key, value) => {
@@ -15,14 +15,14 @@ const ThenClause = ({ action, setThenClause, ...props }) => {
 
   return (
     <span {...props}>
-      <SelectColumn
+      <Action.SelectField
         id="then-subject"
         options={["date", "inflow", "outflow", "payee", "notes"]}
         value={then.a}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />
       =
-      <SelectColumn
+      <Action.SelectField
         id="then-value"
         options={["date", "inflow", "outflow", "payee", "notes"]}
         value={then.b}
@@ -32,4 +32,4 @@ const ThenClause = ({ action, setThenClause, ...props }) => {
   )
 }
 
-export default ThenClause
+export default _ThenClause

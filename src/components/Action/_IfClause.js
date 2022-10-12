@@ -1,7 +1,6 @@
-import SelectColumn from "../SelectColumn"
-import TextColumn from "../TextField"
+import Action from "."
 
-const IfClause = ({ index, ifClause, setIfClause }) => {
+const _IfClause = ({ index, ifClause, setIfClause }) => {
   const setSingleForm = (id, value) => {
     const ifClauseCopy = { ...ifClause }
     ifClauseCopy[id]["value"] = value
@@ -10,14 +9,14 @@ const IfClause = ({ index, ifClause, setIfClause }) => {
 
   return (
     <span key={index}>
-      <SelectColumn
+      <Action.SelectField
         id="a"
         options={["date", "inflow", "outflow", "payee", "notes"]}
         value={ifClause.a.value}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />
       {ifClause.relationalOperator}
-      <TextColumn
+      <Action.TextField
         value={ifClause.b.value}
         onChange={(e) => setSingleForm("b", e.target.value)}
       />
@@ -25,4 +24,4 @@ const IfClause = ({ index, ifClause, setIfClause }) => {
   )
 }
 
-export default IfClause
+export default _IfClause

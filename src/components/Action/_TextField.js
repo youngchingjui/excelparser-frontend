@@ -1,6 +1,6 @@
 import Form from "react-bootstrap/Form"
 
-const TextColumn = ({ ...props }) => {
+const _TextField = ({ ...props }) => {
   return (
     <Form.Control
       id="b"
@@ -13,4 +13,4 @@ const TextColumn = ({ ...props }) => {
   )
 }
 
-export default TextColumn
+export default _TextField

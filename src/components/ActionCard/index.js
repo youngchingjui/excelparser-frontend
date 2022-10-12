@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 
 import Action from "../Action"
-import IfThenCard from "../Action/IfThenCard"
 
 const ActionCard = ({
   action,
@@ -20,7 +19,10 @@ const ActionCard = ({
         <Container>
           <Row>
             {action.type == "if" && (
-              <IfThenCard action={action} setSingleAction={setSingleAction} />
+              <Action.IfThen
+                action={action}
+                setSingleAction={setSingleAction}
+              />
             )}
             {action.type == "removeRows" && (
               <Action.RemoveRows

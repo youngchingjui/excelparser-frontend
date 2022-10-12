@@ -1,7 +1,6 @@
-import IfClause from "../IfClause"
-import ThenClause from "../ThenClause"
+import Action from "."
 
-const IfThenCard = ({ action, setSingleAction }) => {
+const _IfThen = ({ action, setSingleAction }) => {
   const setIfClause = (index, value) => {
     const actionCopy = { ...action }
     actionCopy.if[index] = value
@@ -19,7 +18,7 @@ const IfThenCard = ({ action, setSingleAction }) => {
       <div id="if">
         If
         {action.if.map((ifClause, index) => (
-          <IfClause
+          <Action.IfClause
             index={index}
             ifClause={ifClause}
             key={index}
@@ -31,11 +30,11 @@ const IfThenCard = ({ action, setSingleAction }) => {
       <div id="then">
         <span>
           Then
-          <ThenClause action={action} setThenClause={setThenClause} />
+          <Action.ThenClause action={action} setThenClause={setThenClause} />
         </span>
       </div>
     </>
   )
 }
 
-export default IfThenCard
+export default _IfThen

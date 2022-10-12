@@ -1,4 +1,4 @@
-import TextColumn from "./TextField"
+import Action from "."
 
 const _RemoveRows = ({ action, setSingleAction }) => {
   const handleChange = (e) => {
@@ -8,7 +8,8 @@ const _RemoveRows = ({ action, setSingleAction }) => {
   }
   return (
     <div id="removeRows">
-      Remove <TextColumn value={action.value} onChange={handleChange} /> rows
+      Remove <Action.TextField value={action.value} onChange={handleChange} />{" "}
+      rows
     </div>
   )
 }

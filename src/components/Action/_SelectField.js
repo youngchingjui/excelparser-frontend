@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form"
 
-const SelectColumn = ({ options, ...props }) => {
+const _SelectField = ({ options, ...props }) => {
   return (
-    <Form.Select size="sm" className="select-column" {...props}>
+    <Form.Select size="sm" className="select-field" {...props}>
       {options.map((e, i) => (
         <option value={e} key={i}>
           {e}
@@ -12,4 +12,4 @@ const SelectColumn = ({ options, ...props }) => {
   )
 }
 
-export default SelectColumn
+export default _SelectField
