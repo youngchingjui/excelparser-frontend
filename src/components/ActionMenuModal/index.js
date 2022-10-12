@@ -1,15 +1,18 @@
 import { Card, Modal } from "react-bootstrap"
 
-const actionList = [
-  {
-    type: "remove rows",
-    mainText: "Remove x rows",
-  },
-  {
-    type: "remove columns",
-    mainText: "Remove x columns",
-  },
-]
+const getActionList = () => {
+  return [
+    {
+      type: "removeRows",
+      mainText: "Remove x rows",
+      value: 2,
+    },
+    {
+      type: "removeColumns",
+      mainText: "Remove x columns",
+    },
+  ]
+}
 
 const ActionMenuModal = ({ actions, setActions, handleClose, ...props }) => {
   // add this action to the action list state
@@ -21,6 +24,7 @@ const ActionMenuModal = ({ actions, setActions, handleClose, ...props }) => {
     handleClose()
   }
 
+  const actionList = getActionList()
   return (
     <Modal onHide={handleClose} {...props}>
       <Modal.Header closeButton>

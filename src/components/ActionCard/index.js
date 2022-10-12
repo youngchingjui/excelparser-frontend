@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 
+import Action from "../Action"
 import IfThenCard from "../Action/IfThenCard"
 
 const ActionCard = ({
@@ -16,11 +17,18 @@ const ActionCard = ({
   return (
     <Card {...props}>
       <Card.Body>
-        {action.type == "if" && (
-          <IfThenCard action={action} setSingleAction={setSingleAction} />
-        )}
         <Container>
           <Row>
+            {action.type == "if" && (
+              <IfThenCard action={action} setSingleAction={setSingleAction} />
+            )}
+            {action.type == "removeRows" && (
+              <Action.RemoveRows
+                initialValue={action.value}
+                action={action}
+                setSingleAction={setSingleAction}
+              />
+            )}
             <Col>{id + " " + action.mainText}</Col>
             <Col xs={1}>
               <Button variant="outline-danger" onClick={deleteAction}>
