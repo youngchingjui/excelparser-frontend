@@ -73,9 +73,14 @@ export async function getStaticProps({ params: { script } }) {
     const db = client.db("excelParser")
 
     const oid = new ObjectId(script)
-    const { actions } = await db.collection("scripts").findOne({ _id: oid })
 
-    return { props: { actions: actions || [] } }
+    const results = await db.collection("scripts").findOne({ _id: oid })
+
+    if (!results) {
+      return { props: { actions: [] } }
+    }
+
+    return { props: { actions: results.actions || [] } }
   } catch (e) {
     console.error(e)
   }
