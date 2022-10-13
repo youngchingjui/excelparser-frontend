@@ -125,6 +125,7 @@ export async function getStaticProps({ params: { script } }) {
         id: script,
         title: results.name || null,
       },
+      revalidate: 10,
     }
   } catch (e) {
     console.error(e)

@@ -5,9 +5,9 @@ const SaveScriptButton = ({ id, actions, setActions }) => {
   const handleClick = async () => {
     try {
       const response = await axios({
-        method: "POST",
+        method: "PATCH",
         url: `/api/scripts/${id}`,
-        data: { actions, id },
+        data: { id, updates: { actions } },
       })
 
       setActions(response.data.actions)

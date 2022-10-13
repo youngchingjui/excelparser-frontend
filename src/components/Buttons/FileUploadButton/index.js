@@ -1,7 +1,6 @@
 import Form from "react-bootstrap/Form"
 
 const FileUploadButton = ({ setSheets }) => {
-  // TODO: Fix bug if user hits "cancel" when selecting file
   let fileReader
 
   const handleFileRead = (e) => {

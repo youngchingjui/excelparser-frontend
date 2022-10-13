@@ -29,8 +29,6 @@ const ActionsList = ({
     setActions(actionsCopy)
   }
 
-  // TODO: Load sheet[id] into ExcelTable component
-
   return (
     <>
       <Card
