@@ -13,6 +13,7 @@ import FileUploadButton from "../../components/Buttons/FileUploadButton"
 import SaveScriptButton from "../../components/Buttons/SaveScriptButton"
 import ExcelTable from "../../components/ExcelTable"
 import Header from "../../components/Header"
+import ScriptTitle from "../../components/ScriptTitle"
 import clientPromise from "../../lib/mongodb"
 
 const ScriptPage = (props) => {
@@ -22,7 +23,7 @@ const ScriptPage = (props) => {
   const [activeAction, setActiveAction] = useState(0)
   const [modalShow, setModalShow] = useState(false)
 
-  const { id } = props
+  const { id, title } = props
   const handleClose = () => setModalShow(false)
   // Load actions into state
   useEffect(() => {
@@ -60,6 +61,7 @@ const ScriptPage = (props) => {
       <Container>
         <Row>
           <Col>
+            <ScriptTitle title={title || id} id={id} />
             <FileUploadButton setSheets={setSheets} />
             <ActionsList
               actions={actions}
@@ -117,7 +119,13 @@ export async function getStaticProps({ params: { script } }) {
       return { props: { actions: [], id: script } }
     }
 
-    return { props: { actions: results.actions || [], id: script } }
+    return {
+      props: {
+        actions: results.actions || [],
+        id: script,
+        title: results.name || null,
+      },
+    }
   } catch (e) {
     console.error(e)
   }

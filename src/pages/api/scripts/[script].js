@@ -3,6 +3,8 @@ import { ObjectId } from "mongodb"
 import clientPromise from "../../../lib/mongodb"
 
 const handler = async (req, res) => {
+  const { actions, id, updates } = req.body
+
   switch (req.method) {
     case "GET":
       // Retreive a script by ID
@@ -20,9 +22,9 @@ const handler = async (req, res) => {
 
       res.end(`Script: ${scriptID}`)
 
+    // TODO: Make POST only to create a new script, not updating one
+    // Create a new script or update existing script
     case "POST":
-      // Create a new script or update existing script
-      const { actions, id } = req.body
       try {
         const client = await clientPromise
         const db = client.db("excelParser")
@@ -33,7 +35,7 @@ const handler = async (req, res) => {
           .replaceOne({ _id: ObjectId(id) }, { actions }, { upsert: true })
 
         if (!response.acknowledged) {
-          throw Error("Did not create or update script correctly")
+          throw Error("Script creationg or update unsuccessfull")
         }
 
         // Send back updated script
@@ -45,6 +47,29 @@ const handler = async (req, res) => {
       } catch (e) {
         console.error(e)
         res.status(500).end("error with POST")
+      }
+
+    // Update existing script
+    case "PATCH":
+      try {
+        const client = await clientPromise
+        const db = client.db("excelParser")
+
+        const response = await db
+          .collection("scripts")
+          .updateOne({ _id: ObjectId(id) }, { $set: updates })
+
+        if (!response.acknowledged) {
+          throw Error("Script update unsuccessfull")
+        }
+
+        const updatedScript = await db
+          .collection("scripts")
+          .findOne({ _id: ObjectId(id) })
+        res.send(updatedScript)
+      } catch (e) {
+        console.error(e)
+        res.status(500).end("error with PATCH")
       }
 
     default:
