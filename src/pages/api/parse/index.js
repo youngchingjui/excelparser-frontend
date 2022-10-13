@@ -1,14 +1,14 @@
 const handler = (req, res) => {
   if (req.method === "POST") {
     const { body } = req
-    const { actions, sheets } = body
+    const { actions, sheet } = body
 
-    let responseString
+    let responseString = sheet
     actions.forEach((action) => {
       if (action.type == "removeRows") {
-        const sheetArray = sheets[0].split("\r\n")
-        sheetArray.splice(0, action.value)
-        responseString = sheetArray.join("\r\n")
+        const tempArray = responseString.split("\r\n")
+        tempArray.splice(0, action.value)
+        responseString = tempArray.join("\r\n")
       }
     })
 

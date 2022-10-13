@@ -1,3 +1,4 @@
+import axios from "axios"
 import { ObjectId } from "mongodb"
 import { useEffect, useState } from "react"
 import Button from "react-bootstrap/Button"
@@ -27,6 +28,23 @@ const ScriptPage = (props) => {
     setActions(props.actions || [])
   }, [setActions, props.actions])
 
+  const parseData = async (index) => {
+    const actionsSubset = actions.slice(0, index + 1)
+    const response = await axios({
+      url: "/api/parse",
+      method: "POST",
+      data: { actions: actionsSubset, sheet: sheets[0] },
+    })
+
+    if (response.status != 200) {
+      console.error("did not get parsed data")
+      return
+    }
+    const sheetsCopy = [...sheets]
+    sheetsCopy[index + 1] = response.data
+    setSheets(sheetsCopy)
+  }
+
   return (
     <>
       <Header />
@@ -44,6 +62,7 @@ const ScriptPage = (props) => {
               setActions={setActions}
               activeAction={activeAction}
               setActiveAction={setActiveAction}
+              parseData={parseData}
             />
             <Button variant="secondary" onClick={() => setModalShow(true)}>
               Add action
@@ -59,7 +78,10 @@ const ScriptPage = (props) => {
             </DownloadButton>
           </Col>
           <Col xs="8">
-            <ExcelTable sheets={sheets} setDownloadUrl={setDownloadUrl} />
+            <ExcelTable
+              sheet={sheets[activeAction]}
+              setDownloadUrl={setDownloadUrl}
+            />
           </Col>
         </Row>
       </Container>

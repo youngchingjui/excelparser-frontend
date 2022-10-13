@@ -1,26 +1,26 @@
 import { useEffect } from "react"
 import Table from "react-bootstrap/Table"
 
-const ExcelTable = ({ sheets, setDownloadUrl }) => {
+const ExcelTable = ({ sheet, setDownloadUrl }) => {
   useEffect(() => {
     // Update the download URL whenever sheet changes
 
     // Don't run if sheet is not yet set
-    if (!sheets) {
+    if (!sheet) {
       return
     }
 
-    const blob = new Blob([sheets])
+    const blob = new Blob([sheet])
     setDownloadUrl(window.URL.createObjectURL(blob))
-  }, [setDownloadUrl, sheets])
+  }, [setDownloadUrl, sheet])
 
   return (
     <>
-      {sheets[0] && (
+      {sheet && (
         <Table hover>
           <thead>
             <tr>
-              {sheets[0]
+              {sheet
                 .split("\n")[0]
                 .split(",")
                 .map((e, index) => (
@@ -29,7 +29,7 @@ const ExcelTable = ({ sheets, setDownloadUrl }) => {
             </tr>
           </thead>
           <tbody>
-            {sheets[0]
+            {sheet
               .split("\n")
               .splice(1)
               .map((row, index) => (

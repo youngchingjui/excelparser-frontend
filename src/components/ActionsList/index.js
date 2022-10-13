@@ -1,9 +1,21 @@
-import { useState } from "react"
+import { Card } from "react-bootstrap"
 
 import ActionCard from "../ActionCard"
 
-const ActionsList = ({ actions, setActions }) => {
-  const [activeAction, setActiveAction] = useState(0)
+const ActionsList = ({
+  actions,
+  setActions,
+  parseData,
+  activeAction,
+  setActiveAction,
+}) => {
+  const handleOnClick = (index) => {
+    // Highlight action
+    setActiveAction(index + 1)
+
+    // Send all actions at index and above to server for parsing
+    parseData(index)
+  }
 
   const setSingleAction = (index, action) => {
     const actionsCopy = [...actions]
@@ -17,11 +29,17 @@ const ActionsList = ({ actions, setActions }) => {
     setActions(actionsCopy)
   }
 
-  // TODO: Request sheet[id] from server, given this selected action and all before it
   // TODO: Load sheet[id] into ExcelTable component
 
   return (
     <>
+      <Card
+        bg={activeAction == 0 && "primary"}
+        text={activeAction == 0 && "white"}
+        onClick={() => setActiveAction(0)}
+      >
+        <Card.Body>Original</Card.Body>
+      </Card>
       {actions &&
         actions.map((action, index) => (
           <ActionCard
@@ -32,9 +50,9 @@ const ActionsList = ({ actions, setActions }) => {
               setSingleAction(index, value)
             }}
             deleteAction={() => deleteAction(index)}
-            bg={activeAction == index && "primary"}
-            text={activeAction == index && "white"}
-            onClick={() => setActiveAction(index)}
+            bg={activeAction == index + 1 && "primary"}
+            text={activeAction == index + 1 && "white"}
+            onClick={() => handleOnClick(index)}
           />
         ))}
     </>
