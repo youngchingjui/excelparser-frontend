@@ -15,3 +15,7 @@
 #removeRows input {
     width: 5em
 }
+
+#removeColumns input {
+    width: 5em
+}

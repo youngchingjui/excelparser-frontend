@@ -16,6 +16,13 @@ const ActionDispatch = ({ action, setSingleAction }) => {
         <Action.RemoveRows action={action} setSingleAction={setSingleAction} />
       )
 
+    case "removeColumns":
+      return (
+        <Action.RemoveColumns
+          action={action}
+          setSingleAction={setSingleAction}
+        />
+      )
     default:
       return action.mainText
   }
