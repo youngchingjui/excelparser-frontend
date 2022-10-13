@@ -12,7 +12,6 @@ import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
 import FileUploadButton from "../../components/FileUploadButton"
 import Header from "../../components/Header"
-import TestComponent from "../../components/Test"
 import clientPromise from "../../lib/mongodb"
 
 const ScriptPage = (props) => {
@@ -29,6 +28,10 @@ const ScriptPage = (props) => {
   }, [setActions, props.actions])
 
   const parseData = async (index) => {
+    // Don't parse if no file is uploaded
+    if (!sheets[0]) {
+      return
+    }
     const actionsSubset = actions.slice(0, index + 1)
     const response = await axios({
       url: "/api/parse",
@@ -51,11 +54,6 @@ const ScriptPage = (props) => {
       <Container>
         <Row>
           <Col>
-            <TestComponent
-              actions={actions}
-              sheets={sheets}
-              setSheets={setSheets}
-            />
             <FileUploadButton setSheets={setSheets} />
             <ActionsList
               actions={actions}
