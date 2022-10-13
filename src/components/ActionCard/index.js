@@ -6,26 +6,16 @@ import Row from "react-bootstrap/Row"
 
 import Action from "../Action"
 
-const ActionDispatch = ({ action, setSingleAction }) => {
-  switch (action.type) {
-    case "if":
-      return <Action.IfThen action={action} setSingleAction={setSingleAction} />
-
-    case "removeRows":
-      return (
-        <Action.RemoveRows action={action} setSingleAction={setSingleAction} />
-      )
-
-    case "removeColumns":
-      return (
-        <Action.RemoveColumns
-          action={action}
-          setSingleAction={setSingleAction}
-        />
-      )
-    default:
-      return action.mainText
-  }
+const ActionDispatch = {
+  if: (action, setSingleAction) => (
+    <Action.IfThen action={action} setSingleAction={setSingleAction} />
+  ),
+  removeRows: (action, setSingleAction) => (
+    <Action.RemoveRows action={action} setSingleAction={setSingleAction} />
+  ),
+  removeColumns: (action, setSingleAction) => (
+    <Action.RemoveColumns action={action} setSingleAction={setSingleAction} />
+  ),
 }
 
 const ActionCard = ({
@@ -40,7 +30,11 @@ const ActionCard = ({
       <Card.Body>
         <Container>
           <Row>
-            <Col>{ActionDispatch({ action, setSingleAction })}</Col>
+            <Col>
+              {ActionDispatch.hasOwnProperty(action.type)
+                ? ActionDispatch[action.type](action, setSingleAction)
+                : action.mainText}
+            </Col>
             <Col xs={1}>
               <Button variant="outline-danger" onClick={deleteAction}>
                 D

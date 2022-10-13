@@ -4,7 +4,6 @@ import clientPromise from "../../../lib/mongodb"
 
 const handler = async (req, res) => {
   const { actions, id, updates } = req.body
-
   switch (req.method) {
     case "GET":
       // Retreive a script by ID
@@ -22,6 +21,7 @@ const handler = async (req, res) => {
 
       res.end(`Script: ${scriptID}`)
 
+      break
     // TODO: Make POST only to create a new script, not updating one
     // Create a new script or update existing script
     case "POST":
@@ -49,6 +49,7 @@ const handler = async (req, res) => {
         res.status(500).end("error with POST")
       }
 
+      break
     // Update existing script
     case "PATCH":
       try {
@@ -72,6 +73,7 @@ const handler = async (req, res) => {
         res.status(500).end("error with PATCH")
       }
 
+      break
     default:
       res.end(`${req.method} not supported`)
   }

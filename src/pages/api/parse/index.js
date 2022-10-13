@@ -1,5 +1,11 @@
 import { removeColumns, removeRows } from "../../../helper/api/parseFunctions"
 
+const actionFunctions = {
+  removeRows: (action, responseString) => removeRows(action, responseString),
+  removeColumns: (action, responseString) =>
+    removeColumns(action, responseString),
+}
+
 const handler = (req, res) => {
   if (req.method === "POST") {
     const { body } = req
@@ -7,16 +13,11 @@ const handler = (req, res) => {
 
     let responseString = sheet
     actions.forEach((action) => {
-      switch (action.type) {
-        case "removeRows":
-          responseString = removeRows(action, responseString)
-          break
-        case "removeColumns":
-          responseString = removeColumns(action, responseString)
-          break
-        default:
-          console.log("no matching action")
+      if (!actionFunctions.hasOwnProperty(action.type)) {
+        console.warn("no matching action")
+        return
       }
+      responseString = actionFunctions[action.type](action, responseString)
     })
 
     res.status(200).json(responseString)
