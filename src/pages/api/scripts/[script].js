@@ -21,16 +21,30 @@ const handler = async (req, res) => {
       res.end(`Script: ${scriptID}`)
 
     case "POST":
-      // Create a new script
-      const data = req.body
+      // Create a new script or update existing script
+      const { actions, id } = req.body
       try {
         const client = await clientPromise
         const db = client.db("excelParser")
 
-        await db.collection("scripts").insertOne(JSON.parse(data))
-        res.end("Successfully added new script")
+        // Update script, or create new if doesn't exist
+        const response = await db
+          .collection("scripts")
+          .replaceOne({ _id: ObjectId(id) }, { actions }, { upsert: true })
+
+        if (!response.acknowledged) {
+          throw Error("Did not create or update script correctly")
+        }
+
+        // Send back updated script
+        const updatedScript = await db
+          .collection("scripts")
+          .findOne({ _id: ObjectId(id) })
+
+        res.send(updatedScript)
       } catch (e) {
-        res.end("error with POST")
+        console.error(e)
+        res.status(500).end("error with POST")
       }
 
     default:

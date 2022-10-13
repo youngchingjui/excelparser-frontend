@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row"
 
 import ActionMenuModal from "../../components/ActionMenuModal"
 import ActionsList from "../../components/ActionsList"
+import SaveScriptButton from "../../components/Buttons/SaveScriptButton"
 import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
 import FileUploadButton from "../../components/FileUploadButton"
@@ -21,6 +22,7 @@ const ScriptPage = (props) => {
   const [activeAction, setActiveAction] = useState(0)
   const [modalShow, setModalShow] = useState(false)
 
+  const { id } = props
   const handleClose = () => setModalShow(false)
   // Load actions into state
   useEffect(() => {
@@ -33,19 +35,23 @@ const ScriptPage = (props) => {
       return
     }
     const actionsSubset = actions.slice(0, index + 1)
-    const response = await axios({
-      url: "/api/parse",
-      method: "POST",
-      data: { actions: actionsSubset, sheet: sheets[0] },
-    })
+    try {
+      const response = await axios({
+        url: "/api/parse",
+        method: "POST",
+        data: { actions: actionsSubset, sheet: sheets[0] },
+      })
 
-    if (response.status != 200) {
-      console.error("did not get parsed data")
-      return
+      if (response.status != 200) {
+        console.error("did not get parsed data")
+        return
+      }
+      const sheetsCopy = [...sheets]
+      sheetsCopy[index + 1] = response.data
+      setSheets(sheetsCopy)
+    } catch (e) {
+      console.error(e)
     }
-    const sheetsCopy = [...sheets]
-    sheetsCopy[index + 1] = response.data
-    setSheets(sheetsCopy)
   }
 
   return (
@@ -62,7 +68,10 @@ const ScriptPage = (props) => {
               setActiveAction={setActiveAction}
               parseData={parseData}
             />
-            <Button variant="secondary" onClick={() => setModalShow(true)}>
+            <Button
+              variant="outline-primary"
+              onClick={() => setModalShow(true)}
+            >
               Add action
             </Button>
             <ActionMenuModal
@@ -71,9 +80,17 @@ const ScriptPage = (props) => {
               actions={actions}
               setActions={setActions}
             />
-            <DownloadButton variant="secondary" downloadUrl={downloadUrl}>
+            <DownloadButton
+              variant="outline-secondary"
+              downloadUrl={downloadUrl}
+            >
               Download file
             </DownloadButton>
+            <SaveScriptButton
+              id={id}
+              actions={actions}
+              setActions={setActions}
+            />
           </Col>
           <Col xs="8">
             <ExcelTable
@@ -97,10 +114,10 @@ export async function getStaticProps({ params: { script } }) {
     const results = await db.collection("scripts").findOne({ _id: oid })
 
     if (!results) {
-      return { props: { actions: [] } }
+      return { props: { actions: [], id: script } }
     }
 
-    return { props: { actions: results.actions || [] } }
+    return { props: { actions: results.actions || [], id: script } }
   } catch (e) {
     console.error(e)
   }
