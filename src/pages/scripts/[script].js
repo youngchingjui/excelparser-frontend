@@ -8,10 +8,10 @@ import Row from "react-bootstrap/Row"
 
 import ActionMenuModal from "../../components/ActionMenuModal"
 import ActionsList from "../../components/ActionsList"
+import DownloadButton from "../../components/Buttons/DownloadButton"
+import FileUploadButton from "../../components/Buttons/FileUploadButton"
 import SaveScriptButton from "../../components/Buttons/SaveScriptButton"
-import DownloadButton from "../../components/DownloadButton"
 import ExcelTable from "../../components/ExcelTable"
-import FileUploadButton from "../../components/FileUploadButton"
 import Header from "../../components/Header"
 import clientPromise from "../../lib/mongodb"
 
