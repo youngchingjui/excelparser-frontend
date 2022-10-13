@@ -10,6 +10,31 @@ const getActionList = () => {
     {
       type: "removeColumns",
       mainText: "Remove x columns",
+      value: 2,
+    },
+    { type: "addRows", mainText: "Add x rows", value: 2 },
+    { type: "addColumns", mainText: "Add x columns", value: 2 },
+    {
+      type: "if",
+      if: [
+        {
+          a: {
+            type: "column",
+            value: "inflow",
+          },
+          relationalOperator: "==",
+          b: {
+            type: "text",
+            value: "tes text",
+          },
+        },
+      ],
+      then: {
+        type: "assignment",
+        a: "payee",
+        b: "notes",
+      },
+      mainText: "If-Then logic",
     },
   ]
 }
@@ -34,7 +59,7 @@ const ActionMenuModal = ({ actions, setActions, handleClose, ...props }) => {
         {actionList.map((e, index) => {
           return (
             <Card key={index} onClick={() => addAction(e)}>
-              {e.mainText}
+              <Card.Body>{e.mainText}</Card.Body>
             </Card>
           )
         })}
