@@ -7,6 +7,7 @@ const getActionList = () => {
       mainText: "Remove x rows",
       value: 2,
     },
+    { type: "removeAtoBRows", mainText: "Remove rows from A to B", a: 1, b: 3 },
     {
       type: "removeColumns",
       mainText: "Remove x columns",

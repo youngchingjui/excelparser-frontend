@@ -15,6 +15,9 @@ const ActionDispatch = {
   removeColumns: (action, setSingleAction) => (
     <Action.RemoveColumns action={action} setSingleAction={setSingleAction} />
   ),
+  removeAtoBRows: (action, setSingleAction) => (
+    <Action.RemoveAToBRows action={action} setSingleAction={setSingleAction} />
+  ),
 }
 
 const ActionCard = ({

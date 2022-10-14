@@ -15,4 +15,10 @@ const removeColumns = (action, responseString) => {
   return tempArray2.join("\r\n")
 }
 
-export { removeColumns, removeRows }
+const removeAtoBRows = (action, responseString) => {
+  const tempArray = responseString.split("\r\n")
+  tempArray.splice(action.a, action.b - action.a)
+  return tempArray.join("\r\n")
+}
+
+export { removeAtoBRows, removeColumns, removeRows }

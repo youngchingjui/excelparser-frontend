@@ -28,6 +28,10 @@
     width: 5em
 }
 
+#removeAtoBRows input {
+    width: 5em
+}
+
 #removeColumns input {
     width: 5em
 }

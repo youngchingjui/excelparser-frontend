@@ -1,9 +1,15 @@
-import { removeColumns, removeRows } from "../../../helper/api/parseFunctions"
+import {
+  removeAtoBRows,
+  removeColumns,
+  removeRows,
+} from "../../../helper/api/parseFunctions"
 
 const actionFunctions = {
   removeRows: (action, responseString) => removeRows(action, responseString),
   removeColumns: (action, responseString) =>
     removeColumns(action, responseString),
+  removeAtoBRows: (action, responseString) =>
+    removeAtoBRows(action, responseString),
 }
 
 const handler = (req, res) => {

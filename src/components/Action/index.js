@@ -1,5 +1,6 @@
 import _IfClause from "./_IfClause"
 import _IfThen from "./_IfThen"
+import _RemoveAToBRows from "./_RemoveAToBRows"
 import _RemoveColumns from "./_RemoveColumns"
 import _RemoveRows from "./_RemoveRows"
 import _SelectField from "./_SelectField"
@@ -9,6 +10,7 @@ import _ThenClause from "./_ThenClause"
 const Action = {
   RemoveRows: _RemoveRows,
   RemoveColumns: _RemoveColumns,
+  RemoveAToBRows: _RemoveAToBRows,
   IfClause: _IfClause,
   IfThen: _IfThen,
   ThenClause: _ThenClause,
