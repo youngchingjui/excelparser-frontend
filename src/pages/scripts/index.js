@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Button } from "react-bootstrap"
 import Container from "react-bootstrap/Container"
 
 import Header from "../../components/Header"
@@ -13,16 +14,8 @@ const ScriptsPage = ({ scripts }) => {
       <Header />
       <Container>
         <h1>Scripts</h1>
-        {objectId && (
-          <Link
-            href={{
-              pathname: "/scripts/[script]",
-              query: { script: objectId },
-            }}
-          >
-            Create your own script
-          </Link>
-        )}
+
+        <h3>My scripts</h3>
         {scripts.map((e) => {
           return (
             <div key={e._id}>
@@ -37,6 +30,17 @@ const ScriptsPage = ({ scripts }) => {
             </div>
           )
         })}
+        {objectId && (
+          <Link
+            href={{
+              pathname: "/scripts/[script]",
+              query: { script: objectId },
+            }}
+            passHref
+          >
+            <Button>Create your own script</Button>
+          </Link>
+        )}
       </Container>
     </>
   )
