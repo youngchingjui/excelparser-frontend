@@ -25,10 +25,16 @@ const ScriptPage = (props) => {
 
   const { id, title } = props
   const handleClose = () => setModalShow(false)
-  // Load actions into state
+
   useEffect(() => {
-    setActions(props.actions || [])
-  }, [setActions, props.actions])
+    const getActions = async () => {
+      // Get Actions from database
+      const response = await axios({ method: "GET", url: `/api/scripts/${id}` })
+      // Load actions into state
+      setActions(response.data.actions || [])
+    }
+    getActions()
+  }, [setActions, id])
 
   const parseData = async (index) => {
     // Don't parse if no file is uploaded
@@ -106,6 +112,8 @@ const ScriptPage = (props) => {
   )
 }
 
+// TODO: implement on-demand ISR for all pages
+// So that, if user updates name of script, it's reflected immediately on /scripts page
 export async function getStaticProps({ params: { script } }) {
   try {
     const client = await clientPromise
@@ -116,12 +124,11 @@ export async function getStaticProps({ params: { script } }) {
     const results = await db.collection("scripts").findOne({ _id: oid })
 
     if (!results) {
-      return { props: { actions: [], id: script } }
+      return { props: { id: script } }
     }
 
     return {
       props: {
-        actions: results.actions || [],
         id: script,
         title: results.name || null,
       },

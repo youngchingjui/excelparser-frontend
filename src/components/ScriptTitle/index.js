@@ -11,20 +11,18 @@ const ScriptTitle = ({ title, id }) => {
   const [titleState, setTitleState] = useState(title)
 
   const save = async (e) => {
-    setUpdating(false)
+    try {
+      const response = await axios({
+        method: "PATCH",
+        url: `/api/scripts/${id}`,
+        data: { updates: { name: titleState } },
+      })
 
-    const response = await axios({
-      method: "PATCH",
-      url: `/api/scripts/${id}`,
-      data: { updates: { name: titleState }, id },
-    })
-
-    if (response.status != 200) {
-      console.error("did not update title correctly")
-      // TODO: Set title back to old title
+      setTitleState(response.data.name)
+    } catch (e) {
+      console.error(e)
     }
-
-    setTitleState(response.data.name)
+    setUpdating(false)
   }
 
   return (

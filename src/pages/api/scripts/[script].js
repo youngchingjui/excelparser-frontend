@@ -3,23 +3,22 @@ import { ObjectId } from "mongodb"
 import clientPromise from "../../../lib/mongodb"
 
 const handler = async (req, res) => {
-  const { actions, id, updates } = req.body
+  const id = req.query.script
+  const { updates, script } = req.body
   switch (req.method) {
     case "GET":
       // Retreive a script by ID
-      const { script: scriptID } = req.query
       try {
         const client = await clientPromise
         const db = client.db("excelParser")
 
-        const oid = new ObjectId(scriptID)
-        const script = await db.collection("scripts").findOne({ _id: oid })
-        res.send(script)
+        const oid = new ObjectId(id)
+        const response = await db.collection("scripts").findOne({ _id: oid })
+        console.info(response)
+        res.status(200).send(response)
       } catch (e) {
         console.error(e)
       }
-
-      res.end(`Script: ${scriptID}`)
 
       break
     // TODO: Make POST only to create a new script, not updating one
@@ -32,10 +31,11 @@ const handler = async (req, res) => {
         // Update script, or create new if doesn't exist
         const response = await db
           .collection("scripts")
-          .replaceOne({ _id: ObjectId(id) }, { actions }, { upsert: true })
+          .replaceOne({ _id: ObjectId(id) }, { script }, { upsert: true })
 
+        console.info(response)
         if (!response.acknowledged) {
-          throw Error("Script creationg or update unsuccessfull")
+          throw Error("Script creation or update unsuccessfull")
         }
 
         // Send back updated script
@@ -50,7 +50,8 @@ const handler = async (req, res) => {
       }
 
       break
-    // Update existing script
+
+    // Update script or create new if doesn't exist
     case "PATCH":
       try {
         const client = await clientPromise
@@ -58,12 +59,18 @@ const handler = async (req, res) => {
 
         const response = await db
           .collection("scripts")
-          .updateOne({ _id: ObjectId(id) }, { $set: updates })
+          .updateOne({ _id: ObjectId(id) }, { $set: updates }, { upsert: true })
 
+        console.info(response)
         if (!response.acknowledged) {
-          throw Error("Script update unsuccessfull")
+          res
+            .status(400)
+            .end("Something went wrong. Script update unsuccessful")
+
+          break
         }
 
+        // Return updated script
         const updatedScript = await db
           .collection("scripts")
           .findOne({ _id: ObjectId(id) })
