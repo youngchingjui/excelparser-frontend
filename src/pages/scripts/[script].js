@@ -1,6 +1,7 @@
 import axios from "axios"
 import { ObjectId } from "mongodb"
 import { useEffect, useState } from "react"
+import { Stack } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
@@ -66,8 +67,10 @@ const ScriptPage = (props) => {
       <Header />
       <Container>
         <Row>
-          <Col>
-            <ScriptTitle title={title || id} id={id} />
+          <ScriptTitle title={title || id} id={id} />
+        </Row>
+        <Row>
+          <Col lg="4">
             <FileUploadButton setSheets={setSheets} />
             <ActionsList
               actions={actions}
@@ -75,32 +78,35 @@ const ScriptPage = (props) => {
               activeAction={activeAction}
               setActiveAction={setActiveAction}
               parseData={parseData}
+              sheets={sheets}
             />
-            <Button
-              variant="outline-primary"
-              onClick={() => setModalShow(true)}
-            >
-              Add action
-            </Button>
-            <ActionMenuModal
-              show={modalShow}
-              handleClose={handleClose}
-              actions={actions}
-              setActions={setActions}
-            />
-            <DownloadButton
-              variant="outline-secondary"
-              downloadUrl={downloadUrl}
-            >
-              Download file
-            </DownloadButton>
-            <SaveScriptButton
-              id={id}
-              actions={actions}
-              setActions={setActions}
-            />
+            <Stack direction="horizontal">
+              <Button
+                variant="outline-secondary"
+                onClick={() => setModalShow(true)}
+              >
+                Add action
+              </Button>
+              <ActionMenuModal
+                show={modalShow}
+                handleClose={handleClose}
+                actions={actions}
+                setActions={setActions}
+              />
+              <SaveScriptButton
+                id={id}
+                actions={actions}
+                setActions={setActions}
+              />
+              <DownloadButton
+                variant="outline-primary"
+                downloadUrl={downloadUrl}
+              >
+                Download file
+              </DownloadButton>
+            </Stack>
           </Col>
-          <Col xs="8">
+          <Col lg="8">
             <ExcelTable
               sheet={sheets[activeAction]}
               setDownloadUrl={setDownloadUrl}

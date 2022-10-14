@@ -8,6 +8,7 @@ const ActionsList = ({
   parseData,
   activeAction,
   setActiveAction,
+  sheets,
 }) => {
   const handleOnClick = (index) => {
     // Highlight action
@@ -31,13 +32,15 @@ const ActionsList = ({
 
   return (
     <>
-      <Card
-        bg={activeAction == 0 && "primary"}
-        text={activeAction == 0 && "white"}
-        onClick={() => setActiveAction(0)}
-      >
-        <Card.Body>Original</Card.Body>
-      </Card>
+      {sheets[0] && (
+        <Card
+          bg={activeAction == 0 && "primary"}
+          text={activeAction == 0 && "white"}
+          onClick={() => setActiveAction(0)}
+        >
+          <Card.Body>Original</Card.Body>
+        </Card>
+      )}
       {actions &&
         actions.map((action, index) => (
           <ActionCard

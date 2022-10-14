@@ -29,7 +29,7 @@ const ScriptTitle = ({ title, id }) => {
     <span id="script-title">
       <Container>
         <Row>
-          <Col xs="9">
+          <Col xs="auto">
             {updating ? (
               <Form.Control
                 value={titleState}

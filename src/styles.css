@@ -12,6 +12,18 @@
     margin-right: 3px;
 }
 
+.trash {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.trash svg {
+    cursor: pointer
+}
+
 #removeRows input {
     width: 5em
 }
