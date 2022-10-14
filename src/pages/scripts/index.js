@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button } from "react-bootstrap"
+import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 
 import Header from "../../components/Header"
