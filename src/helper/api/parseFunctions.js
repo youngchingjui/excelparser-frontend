@@ -21,4 +21,17 @@ const removeAtoBRows = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
-export { removeAtoBRows, removeColumns, removeRows }
+const ifThenStatement = (action, responseString) => {
+  const tempArray = responseString.split("\r\n")
+  const newArray = tempArray.map((row) => {
+    const rowArray = row.split(",")
+    if (rowArray[action.if[0].a.value - 1] == action.if[0].b.value) {
+      rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+    }
+    return rowArray.join(",")
+  })
+
+  return newArray.join("\r\n")
+}
+
+export { ifThenStatement, removeAtoBRows, removeColumns, removeRows }

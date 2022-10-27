@@ -4,24 +4,24 @@ const getActionList = () => {
   return [
     {
       type: "removeRows",
-      mainText: "Remove x rows",
+      mainText: "Remove first x rows",
       value: 2,
     },
     { type: "removeAtoBRows", mainText: "Remove rows from A to B", a: 1, b: 3 },
     {
       type: "removeColumns",
-      mainText: "Remove x columns",
+      mainText: "Remove first x columns",
       value: 2,
     },
-    { type: "addRows", mainText: "Add x rows", value: 2 },
-    { type: "addColumns", mainText: "Add x columns", value: 2 },
+    { type: "addRows", mainText: "Add first x rows", value: 2 },
+    { type: "addColumns", mainText: "Add first x columns", value: 2 },
     {
-      type: "if",
+      type: "ifThenStatement",
       if: [
         {
           a: {
             type: "column",
-            value: "inflow",
+            value: "3",
           },
           relationalOperator: "==",
           b: {
@@ -32,10 +32,10 @@ const getActionList = () => {
       ],
       then: {
         type: "assignment",
-        a: "payee",
-        b: "notes",
+        a: "4",
+        b: "3",
       },
-      mainText: "If-Then logic",
+      mainText: "If-Then statement",
     },
   ]
 }

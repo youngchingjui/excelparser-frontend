@@ -1,3 +1,4 @@
+import { range } from "../../helper/functions"
 import Action from "."
 
 const _ThenClause = ({ action, setThenClause, ...props }) => {
@@ -15,16 +16,17 @@ const _ThenClause = ({ action, setThenClause, ...props }) => {
 
   return (
     <span {...props}>
+      assign the value in Column
       <Action.SelectField
         id="then-subject"
-        options={["date", "inflow", "outflow", "payee", "notes"]}
+        options={range(1, 11, 1)}
         value={then.a}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />
-      =
+      to Column
       <Action.SelectField
         id="then-value"
-        options={["date", "inflow", "outflow", "payee", "notes"]}
+        options={range(1, 11, 1)}
         value={then.b}
         onChange={(e) => setSingleForm("b", e.target.value)}
       />

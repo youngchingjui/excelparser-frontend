@@ -1,3 +1,4 @@
+import { range } from "../../helper/functions"
 import Action from "."
 
 const _IfClause = ({ index, ifClause, setIfClause }) => {
@@ -11,7 +12,7 @@ const _IfClause = ({ index, ifClause, setIfClause }) => {
     <span key={index}>
       <Action.SelectField
         id="a"
-        options={["date", "inflow", "outflow", "payee", "notes"]}
+        options={range(1, 11, 1)}
         value={ifClause.a.value}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />

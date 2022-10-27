@@ -6,7 +6,7 @@ import TrashIcon from "../../../public/static/assets/svg/trash.svg"
 import Action from "../Action"
 
 const ActionDispatch = {
-  if: (action, setSingleAction) => (
+  ifThenStatement: (action, setSingleAction) => (
     <Action.IfThen action={action} setSingleAction={setSingleAction} />
   ),
   removeRows: (action, setSingleAction) => (
