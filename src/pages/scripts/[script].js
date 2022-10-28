@@ -1,6 +1,6 @@
 import axios from "axios"
 import { ObjectId } from "mongodb"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Stack } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
@@ -17,25 +17,14 @@ import Header from "../../components/Header"
 import ScriptTitle from "../../components/ScriptTitle"
 import clientPromise from "../../lib/mongodb"
 
-const ScriptPage = (props) => {
+const ScriptPage = ({ id, actions: actionList, script }) => {
   const [downloadUrl, setDownloadUrl] = useState(null)
-  const [actions, setActions] = useState([])
+  const [actions, setActions] = useState((script && script.actions) || [])
   const [sheets, setSheets] = useState([])
   const [activeAction, setActiveAction] = useState(0)
   const [modalShow, setModalShow] = useState(false)
 
-  const { id, title } = props
   const handleClose = () => setModalShow(false)
-
-  useEffect(() => {
-    const getActions = async () => {
-      // Get Actions from database
-      const response = await axios({ method: "GET", url: `/api/scripts/${id}` })
-      // Load actions into state
-      setActions(response.data.actions || [])
-    }
-    getActions()
-  }, [setActions, id])
 
   const parseData = async (index) => {
     // Don't parse if no file is uploaded
@@ -67,7 +56,7 @@ const ScriptPage = (props) => {
       <Header />
       <Container>
         <Row>
-          <ScriptTitle title={title || id} id={id} />
+          <ScriptTitle title={(script && script.name) || id} id={id} />
         </Row>
         <Row>
           <Col lg="4">
@@ -92,6 +81,7 @@ const ScriptPage = (props) => {
                 handleClose={handleClose}
                 actions={actions}
                 setActions={setActions}
+                actionList={actionList}
               />
               <SaveScriptButton
                 id={id}
@@ -120,23 +110,28 @@ const ScriptPage = (props) => {
 
 // TODO: implement on-demand ISR for all pages
 // So that, if user updates name of script, it's reflected immediately on /scripts page
-export async function getStaticProps({ params: { script } }) {
+export async function getStaticProps({ params: { script: scriptId } }) {
   try {
     const client = await clientPromise
     const db = client.db("excelParser")
 
-    const oid = new ObjectId(script)
+    const oid = new ObjectId(scriptId)
 
-    const results = await db.collection("scripts").findOne({ _id: oid })
+    // Get scripts
+    const [script, actions] = await Promise.all([
+      db.collection("scripts").findOne({ _id: oid }),
+      db.collection("actions").find().toArray(),
+    ])
 
-    if (!results) {
-      return { props: { id: script } }
+    if (!script) {
+      return { props: { id: scriptId } }
     }
 
     return {
       props: {
-        id: script,
-        title: results.name || null,
+        id: scriptId,
+        script: JSON.parse(JSON.stringify(script)),
+        actions: JSON.parse(JSON.stringify(actions)),
       },
       revalidate: 10,
     }
