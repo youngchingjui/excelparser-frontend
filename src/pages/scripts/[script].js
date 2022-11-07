@@ -1,11 +1,11 @@
 import axios from "axios"
 import { ObjectId } from "mongodb"
 import { useState } from "react"
-import { Stack } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
+import Stack from "react-bootstrap/Stack"
 
 import ActionMenuModal from "../../components/ActionMenuModal"
 import ActionsList from "../../components/ActionsList"

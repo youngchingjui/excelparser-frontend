@@ -4,7 +4,7 @@ import Action from "."
 const insertAColumnsAfterColumnB = ({ action, setSingleAction }) => {
   const handleChange = (e, field) => {
     const actionCopy = { ...action }
-    actionCopy[field] = Number(e.target.value)
+    actionCopy[field] = parseInt(e.target.value)
     setSingleAction(actionCopy)
   }
 

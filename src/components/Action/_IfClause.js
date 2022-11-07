@@ -1,4 +1,4 @@
-import { range } from "../../helper/functions"
+import { getColumnRange } from "../../helper/functions"
 import Action from "."
 
 const _IfClause = ({ index, ifClause, setIfClause }) => {
@@ -12,7 +12,7 @@ const _IfClause = ({ index, ifClause, setIfClause }) => {
     <span key={index}>
       <Action.SelectField
         id="a"
-        options={range(1, 11, 1)}
+        options={getColumnRange()}
         value={ifClause.a.value}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />

@@ -1,5 +1,6 @@
 import { actionFunctions } from "../../../helper/mappings"
 
+// TODO: do input validation, since users can edit html validation. HTML validation is not fool-proof
 const handler = (req, res) => {
   if (req.method === "POST") {
     const { body } = req

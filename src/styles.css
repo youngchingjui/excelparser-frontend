@@ -40,6 +40,10 @@
     width: 5em
 }
 
+#setCellValue input {
+    width: 5em
+}
+
 section {margin-top: 4em;}
 
 h3{margin-top: .8em}
