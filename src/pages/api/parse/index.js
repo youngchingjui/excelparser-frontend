@@ -1,22 +1,4 @@
-import {
-  ifThenStatement,
-  insertAColumnsAfterColumnB,
-  removeAtoBRows,
-  removeColumns,
-  removeRows,
-} from "../../../helper/api/parseFunctions"
-
-const actionFunctions = {
-  removeRows: (action, responseString) => removeRows(action, responseString),
-  removeColumns: (action, responseString) =>
-    removeColumns(action, responseString),
-  removeAtoBRows: (action, responseString) =>
-    removeAtoBRows(action, responseString),
-  ifThenStatement: (action, responseString) =>
-    ifThenStatement(action, responseString),
-  insertAColumnsAfterColumnB: (action, responseString) =>
-    insertAColumnsAfterColumnB(action, responseString),
-}
+import { actionFunctions } from "../../../helper/mappings"
 
 const handler = (req, res) => {
   if (req.method === "POST") {
