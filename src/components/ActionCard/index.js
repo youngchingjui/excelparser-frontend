@@ -18,6 +18,12 @@ const ActionDispatch = {
   removeAtoBRows: (action, setSingleAction) => (
     <Action.RemoveAToBRows action={action} setSingleAction={setSingleAction} />
   ),
+  insertAColumnsAfterColumnB: (action, setSingleAction) => (
+    <Action.InsertAColumnsAfterColumnB
+      action={action}
+      setSingleAction={setSingleAction}
+    />
+  ),
 }
 
 const ActionCard = ({

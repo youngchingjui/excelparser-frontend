@@ -1,4 +1,4 @@
-import { range } from "../../helper/functions"
+import { getColumnRange } from "../../helper/functions"
 import Action from "."
 
 const _ThenClause = ({ action, setThenClause, ...props }) => {
@@ -19,14 +19,14 @@ const _ThenClause = ({ action, setThenClause, ...props }) => {
       assign the value in Column
       <Action.SelectField
         id="then-subject"
-        options={range(1, 11, 1)}
+        options={getColumnRange()}
         value={then.a}
         onChange={(e) => setSingleForm("a", e.target.value)}
       />
       to Column
       <Action.SelectField
         id="then-value"
-        options={range(1, 11, 1)}
+        options={getColumnRange()}
         value={then.b}
         onChange={(e) => setSingleForm("b", e.target.value)}
       />

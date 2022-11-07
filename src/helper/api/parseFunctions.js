@@ -34,4 +34,27 @@ const ifThenStatement = (action, responseString) => {
   return newArray.join("\r\n")
 }
 
-export { ifThenStatement, removeAtoBRows, removeColumns, removeRows }
+const insertAColumnsAfterColumnB = (action, responseString) => {
+  const tempArray = responseString.split("\r\n")
+
+  // Don't add columns if action.a is 0 or below
+  if (action.a < 1) {
+    return responseString
+  }
+
+  const newColumns = Array(action.a).fill("")
+  const tempArray2 = tempArray.map((row, index) => {
+    const rowArray = row.split(",")
+    rowArray.splice(action.b, 0, [...newColumns])
+    return rowArray.join(",")
+  })
+  return tempArray2.join("\r\n")
+}
+
+export {
+  ifThenStatement,
+  insertAColumnsAfterColumnB,
+  removeAtoBRows,
+  removeColumns,
+  removeRows,
+}

@@ -1,5 +1,6 @@
 import {
   ifThenStatement,
+  insertAColumnsAfterColumnB,
   removeAtoBRows,
   removeColumns,
   removeRows,
@@ -13,6 +14,8 @@ const actionFunctions = {
     removeAtoBRows(action, responseString),
   ifThenStatement: (action, responseString) =>
     ifThenStatement(action, responseString),
+  insertAColumnsAfterColumnB: (action, responseString) =>
+    insertAColumnsAfterColumnB(action, responseString),
 }
 
 const handler = (req, res) => {

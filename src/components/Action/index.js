@@ -1,5 +1,6 @@
 import _IfClause from "./_IfClause"
 import _IfThen from "./_IfThen"
+import _InsertAColumnsAfterColumnB from "./_InsertAColumnsAfterColumnB"
 import _RemoveAToBRows from "./_RemoveAToBRows"
 import _RemoveColumns from "./_RemoveColumns"
 import _RemoveRows from "./_RemoveRows"
@@ -16,5 +17,6 @@ const Action = {
   ThenClause: _ThenClause,
   TextField: _TextField,
   SelectField: _SelectField,
+  InsertAColumnsAfterColumnB: _InsertAColumnsAfterColumnB,
 }
 export default Action
