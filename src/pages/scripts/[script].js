@@ -124,7 +124,9 @@ export async function getStaticProps({ params: { script: scriptId } }) {
     ])
 
     if (!script) {
-      return { props: { id: scriptId } }
+      return {
+        props: { id: scriptId, actions: JSON.parse(JSON.stringify(actions)) },
+      }
     }
 
     return {
@@ -158,7 +160,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: true,
+      fallback: "blocking",
     }
   } catch (e) {
     console.error(e)
