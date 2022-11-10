@@ -21,12 +21,34 @@ const removeAtoBRows = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
+// TODO: Comparisons on numbers not working, since they are currently string
 const ifThenStatement = (action, responseString) => {
   const tempArray = responseString.split("\r\n")
   const newArray = tempArray.map((row) => {
     const rowArray = row.split(",")
-    if (rowArray[action.if[0].a.value - 1] == action.if[0].b.value) {
-      rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+    const aValue = rowArray[action.if[0].a.value - 1]
+    const bValue = action.if[0].b.value
+    const relationalOperator = action.if[0].relationalOperator
+    if (relationalOperator == "equalTo") {
+      if (aValue == bValue) {
+        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+      }
+    } else if (relationalOperator == "greaterThan") {
+      if (aValue > bValue) {
+        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+      }
+    } else if (relationalOperator == "lessThan") {
+      if (aValue < bValue) {
+        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+      }
+    } else if (relationalOperator == "greaterThanOrEqualTo") {
+      if (aValue >= bValue) {
+        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+      }
+    } else if (relationalOperator == "lessThanOrEqualTo") {
+      if (aValue <= bValue) {
+        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+      }
     }
     return rowArray.join(",")
   })

@@ -46,4 +46,12 @@ const ActionDispatch = {
   ),
 }
 
-export { ActionDispatch, actionFunctions }
+const relationalOperatorMapping = {
+  equalTo: "==",
+  greaterThan: ">",
+  lessThan: "<",
+  greaterThanOrEqualTo: "=>",
+  lessThanOrEqualTo: "=<",
+}
+
+export { ActionDispatch, actionFunctions, relationalOperatorMapping }

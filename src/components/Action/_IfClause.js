@@ -1,10 +1,21 @@
 import { getColumnRange } from "../../helper/functions"
+import { relationalOperatorMapping } from "../../helper/mappings"
 import Action from "."
 
 const _IfClause = ({ index, ifClause, setIfClause }) => {
-  const setSingleForm = (id, value) => {
+  const handleChangeA = (value) => {
     const ifClauseCopy = { ...ifClause }
-    ifClauseCopy[id]["value"] = value
+    ifClauseCopy["a"]["value"] = parseInt(value)
+    setIfClause(ifClauseCopy)
+  }
+  const handleChangeB = (value) => {
+    const ifClauseCopy = { ...ifClause }
+    ifClauseCopy["b"]["value"] = value
+    setIfClause(ifClauseCopy)
+  }
+  const handleRelationalOperatorChange = (id, value) => {
+    const ifClauseCopy = { ...ifClause }
+    ifClauseCopy[id] = value
     setIfClause(ifClauseCopy)
   }
 
@@ -14,12 +25,24 @@ const _IfClause = ({ index, ifClause, setIfClause }) => {
         id="a"
         options={getColumnRange()}
         value={ifClause.a.value}
-        onChange={(e) => setSingleForm("a", e.target.value)}
+        onChange={(e) => handleChangeA(e.target.value)}
       />
-      {ifClause.relationalOperator}
+      <Action.SelectField
+        id="relationalOperator"
+        options={Object.values(relationalOperatorMapping)}
+        value={relationalOperatorMapping[ifClause.relationalOperator]}
+        onChange={(e) =>
+          handleRelationalOperatorChange(
+            "relationalOperator",
+            Object.keys(relationalOperatorMapping).find(
+              (k) => relationalOperatorMapping[k] === e.target.value
+            )
+          )
+        }
+      />
       <Action.TextField
         value={ifClause.b.value}
-        onChange={(e) => setSingleForm("b", e.target.value)}
+        onChange={(e) => handleChangeB(e.target.value)}
       />
     </span>
   )
