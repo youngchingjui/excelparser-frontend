@@ -26,8 +26,8 @@ jobs:
   Test-NextJS-Build:
     # needs: Checkout-Repository
     runs-on: ubuntu-latest
-      env:
-        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
