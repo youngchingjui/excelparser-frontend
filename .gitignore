@@ -1,5 +1,5 @@
 /.next
 /node_modules
 .vscode/launch.json
-.env
+.env.local
 localNotes.md

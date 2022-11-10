@@ -34,8 +34,6 @@ jobs:
           node-version: 12
       - run: npm ci
       - name: NextJS Build
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: npm run build
 
   # Test-NextJS-Build:
