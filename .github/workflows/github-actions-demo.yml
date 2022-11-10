@@ -23,7 +23,7 @@ jobs:
   #     - name: Check out repository code
   #       uses: actions/checkout@v3
 
-  Install-Packages:
+  Test-NextJS-Build:
     # needs: Checkout-Repository
     runs-on: ubuntu-latest
     steps:
@@ -33,9 +33,10 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-
-  Test-NextJS-Build:
-    needs: Install-Packages
-    runs-on: ubuntu-latest
-    steps:
       - run: npm run build
+
+  # Test-NextJS-Build:
+  #   needs: Install-Packages
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: npm run build
