@@ -26,8 +26,6 @@ jobs:
   Test-NextJS-Build:
     # needs: Checkout-Repository
     runs-on: ubuntu-latest
-    env:
-      MONGODB_URI: ${{ secrets.MONGODB_URI }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -35,7 +33,10 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - run: npm run build
+      - name: NextJS Build
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: npm run build
 
   # Test-NextJS-Build:
   #   needs: Install-Packages
