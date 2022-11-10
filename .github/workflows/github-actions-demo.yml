@@ -16,3 +16,22 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  Checkout-Repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+  Install-Packages:
+    needs: Checkout-Repository
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install
+      - run: npm ci
+
+  Test-NextJS-Build:
+    needs: Install-Packages
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run build
