@@ -1,5 +1,6 @@
 import Action from "../components/Action"
 import {
+  applyArithmatic,
   ifThenStatement,
   insertAColumnsAfterColumnB,
   removeAtoBRows,
@@ -20,6 +21,8 @@ const actionFunctions = {
     insertAColumnsAfterColumnB(action, responseString),
   setCellValue: (action, responseString) =>
     setCellValue(action, responseString),
+  applyArithmatic: (action, responseString) =>
+    applyArithmatic(action, responseString),
 }
 
 const ActionDispatch = {
@@ -43,6 +46,9 @@ const ActionDispatch = {
   ),
   setCellValue: (action, setSingleAction) => (
     <Action.SetCellValue action={action} setSingleAction={setSingleAction} />
+  ),
+  applyArithmatic: (action, setSingleAction) => (
+    <Action.ApplyArithmatic action={action} setSingleAction={setSingleAction} />
   ),
 }
 

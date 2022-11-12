@@ -83,7 +83,34 @@ const setCellValue = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
+const applyArithmatic = (action, responseString) => {
+  const { operation, column, value } = action
+  const tempArray = responseString.split("\r\n")
+  const newArray = tempArray.map((row) => {
+    const rowArray = row.split(",")
+    // Don't apply arithmatic to non-numbers, usually headers
+    if (isNaN(rowArray[column - 1])) {
+      return rowArray.join(",")
+    }
+
+    if (operation == "Add") {
+      rowArray[column - 1] = Number(rowArray[column - 1]) + Number(value)
+    } else if (operation == "Subtract") {
+      rowArray[column - 1] = Number(rowArray[column - 1]) - Number(value)
+    } else if (operation == "Multiply") {
+      rowArray[column - 1] = Number(rowArray[column - 1]) * Number(value)
+    } else if (operation == "Divide") {
+      rowArray[column - 1] = Number(rowArray[column - 1]) / Number(value)
+    }
+
+    return rowArray.join(",")
+  })
+
+  return newArray.join("\r\n")
+}
+
 export {
+  applyArithmatic,
   ifThenStatement,
   insertAColumnsAfterColumnB,
   removeAtoBRows,

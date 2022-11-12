@@ -2,6 +2,7 @@ import { getColumnRange } from "../../helper/functions"
 import { relationalOperatorMapping } from "../../helper/mappings"
 import Action from "."
 
+// BUG: When creating new actions (without saving), multiple ifThen clauses, the inputs will sync between IfClauses
 const _IfClause = ({ index, ifClause, setIfClause }) => {
   const handleChangeA = (value) => {
     const ifClauseCopy = { ...ifClause }

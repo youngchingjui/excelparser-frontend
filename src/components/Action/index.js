@@ -1,3 +1,4 @@
+import _ApplyArithmatic from "./_ApplyArithmatic"
 import _IfClause from "./_IfClause"
 import _IfThen from "./_IfThen"
 import _InsertAColumnsAfterColumnB from "./_InsertAColumnsAfterColumnB"
@@ -20,5 +21,6 @@ const Action = {
   SelectField: _SelectField,
   InsertAColumnsAfterColumnB: _InsertAColumnsAfterColumnB,
   SetCellValue: _SetCellValue,
+  ApplyArithmatic: _ApplyArithmatic,
 }
 export default Action
