@@ -29,6 +29,12 @@ const ifThenStatement = (action, responseString) => {
     const aValue = rowArray[action.if[0].a.value - 1]
     const bValue = action.if[0].b.value
     const relationalOperator = action.if[0].relationalOperator
+
+    // If either a value or b value are not numbers, skip
+    if (isNaN(aValue) || isNaN(bValue)) {
+      return rowArray.join(",")
+    }
+
     if (relationalOperator == "equalTo") {
       if (aValue == bValue) {
         rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
