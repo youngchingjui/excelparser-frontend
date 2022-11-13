@@ -1,4 +1,5 @@
 import _ApplyArithmatic from "./_ApplyArithmatic"
+import _DeleteColumnsAToB from "./_DeleteColumnsAToB"
 import _IfClause from "./_IfClause"
 import _IfThen from "./_IfThen"
 import _InsertAColumnsAfterColumnB from "./_InsertAColumnsAfterColumnB"
@@ -22,5 +23,6 @@ const Action = {
   InsertAColumnsAfterColumnB: _InsertAColumnsAfterColumnB,
   SetCellValue: _SetCellValue,
   ApplyArithmatic: _ApplyArithmatic,
+  DeleteColumnsAToB: _DeleteColumnsAToB,
 }
 export default Action

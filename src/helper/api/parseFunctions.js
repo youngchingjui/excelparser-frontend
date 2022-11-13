@@ -109,8 +109,21 @@ const applyArithmatic = (action, responseString) => {
   return newArray.join("\r\n")
 }
 
+const deleteColumnsAToB = (action, responseString) => {
+  const { a, b } = action
+  const tempArray = responseString.split("\r\n")
+  const newArray = tempArray.map((row) => {
+    const rowArray = row.split(",")
+    rowArray.splice(a - 1, b - a + 1)
+    return rowArray.join(",")
+  })
+
+  return newArray.join("\r\n")
+}
+
 export {
   applyArithmatic,
+  deleteColumnsAToB,
   ifThenStatement,
   insertAColumnsAfterColumnB,
   removeAtoBRows,
