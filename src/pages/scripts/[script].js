@@ -83,11 +83,7 @@ const ScriptPage = ({ id, actions: actionList, script }) => {
                 setActions={setActions}
                 actionList={actionList}
               />
-              <SaveScriptButton
-                id={id}
-                actions={actions}
-                setActions={setActions}
-              />
+              <SaveScriptButton id={id} actions={actions} />
               <DownloadButton
                 variant="outline-primary"
                 downloadUrl={downloadUrl}

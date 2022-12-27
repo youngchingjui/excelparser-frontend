@@ -1,7 +1,7 @@
 import axios from "axios"
 import Button from "react-bootstrap/Button"
 
-const SaveScriptButton = ({ id, actions, setActions }) => {
+const SaveScriptButton = ({ id, actions }) => {
   const handleClick = async () => {
     try {
       const response = await axios({
@@ -10,7 +10,7 @@ const SaveScriptButton = ({ id, actions, setActions }) => {
         data: { id, updates: { actions } },
       })
 
-      setActions(response.data.actions)
+      console.log("Successfully updated script")
     } catch (e) {
       console.error(e)
     }
