@@ -5,4 +5,14 @@ const getColumnRange = () => {
   return range(1, 11, 1)
 }
 
-export { getColumnRange, range }
+const getUID = (length) => {
+  const Z_BASE_32 = "ybndrfg8ejkmcpqxot1uwisza345h769"
+  let stringBuilder = []
+  for (let i = 0; i < length; i++) {
+    stringBuilder.push(Z_BASE_32[Math.floor(Math.random() * Z_BASE_32.length)])
+  }
+
+  return stringBuilder.join("")
+}
+
+export { getColumnRange, getUID, range }

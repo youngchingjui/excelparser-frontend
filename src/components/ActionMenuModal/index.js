@@ -1,6 +1,8 @@
 import Card from "react-bootstrap/Card"
 import Modal from "react-bootstrap/Modal"
 
+import { getUID } from "../../helper/functions"
+
 const ActionMenuModal = ({
   actions,
   setActions,
@@ -10,7 +12,8 @@ const ActionMenuModal = ({
 }) => {
   // add this action to the action list state
   const addAction = (actionObject) => {
-    actions.push(actionObject)
+    // Create a unique ID for the actionObject
+    actions.push({ ...actionObject, _id: getUID(8) })
     setActions(actions)
 
     // close modal
