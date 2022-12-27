@@ -21,7 +21,6 @@ const removeAtoBRows = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
-// TODO: Comparisons on numbers not working, since they are currently string
 const ifThenStatement = (action, responseString) => {
   const tempArray = responseString.split("\r\n")
   const newArray = tempArray.map((row) => {

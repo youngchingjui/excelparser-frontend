@@ -1,3 +1,4 @@
+import { Reorder } from "framer-motion"
 import { Card } from "react-bootstrap"
 
 import ActionCard from "../ActionCard"
@@ -41,21 +42,24 @@ const ActionsList = ({
           <Card.Body>Original</Card.Body>
         </Card>
       )}
-      {actions &&
-        actions.map((action, index) => (
-          <ActionCard
-            action={action}
-            key={index}
-            id={index}
-            setSingleAction={(value) => {
-              setSingleAction(index, value)
-            }}
-            deleteAction={() => deleteAction(index)}
-            bg={activeAction == index + 1 && "primary"}
-            text={activeAction == index + 1 && "white"}
-            onClick={() => handleOnClick(index)}
-          />
-        ))}
+      <Reorder.Group axis="y" values={actions} onReorder={setActions} as="div">
+        {actions &&
+          actions.map((action, index) => (
+            <Reorder.Item key={action._id} value={action} as="div">
+              <ActionCard
+                action={action}
+                id={action._id}
+                setSingleAction={(value) => {
+                  setSingleAction(index, value)
+                }}
+                deleteAction={() => deleteAction(index)}
+                bg={activeAction == index + 1 ? "primary" : undefined}
+                text={activeAction == index + 1 && "white"}
+                onClick={() => handleOnClick(index)}
+              />
+            </Reorder.Item>
+          ))}
+      </Reorder.Group>
     </>
   )
 }
