@@ -23,12 +23,16 @@ const removeAtoBRows = (action, responseString) => {
 
 // TODO: aValue returns "0" if blank with Number function. Not sure if this is expected
 const ifThenStatement = (action, responseString) => {
+  const { if: ifStatement, then: thenStatement } = action
+  const { a: ifA, b: ifB, relationalOperator } = ifStatement[0]
+  const { a: thenA, b: thenB, type: thenType } = thenStatement
+  const { type: ifAType, value: ifAValue } = ifA
+  const { type: ifBType, value: ifBValue } = ifB
   const tempArray = responseString.split("\r\n")
   const newArray = tempArray.map((row) => {
     const rowArray = row.split(",")
-    const aValue = Number(rowArray[action.if[0].a.value - 1])
-    const bValue = Number(action.if[0].b.value)
-    const relationalOperator = action.if[0].relationalOperator
+    const aValue = Number(rowArray[ifAValue - 1])
+    const bValue = Number(ifBValue)
 
     // If either a value or b value are not numbers, skip
     if (isNaN(aValue) || isNaN(bValue)) {
@@ -37,23 +41,23 @@ const ifThenStatement = (action, responseString) => {
 
     if (relationalOperator == "equalTo") {
       if (aValue == bValue) {
-        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+        rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "greaterThan") {
       if (aValue > bValue) {
-        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+        rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "lessThan") {
       if (aValue < bValue) {
-        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+        rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "greaterThanOrEqualTo") {
       if (aValue >= bValue) {
-        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+        rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "lessThanOrEqualTo") {
       if (aValue <= bValue) {
-        rowArray[action.then.b - 1] = rowArray[action.then.a - 1]
+        rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     }
     return rowArray.join(",")
