@@ -67,6 +67,9 @@ const relationalOperatorMapping = {
   lessThan: "<",
   greaterThanOrEqualTo: "=>",
   lessThanOrEqualTo: "=<",
+  beginsWith: "begins with",
+  contains: "contains",
+  endsWith: "ends with",
 }
 
 export { ActionDispatch, actionFunctions, relationalOperatorMapping }

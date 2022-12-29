@@ -1,50 +1,43 @@
-import { getColumnRange } from "../../helper/functions"
-import { relationalOperatorMapping } from "../../helper/mappings"
-import Action from "."
+import _ComparisonOperator from "./_ComparisonOperator"
+import _ComparisonValue from "./_ComparisonValue"
+import _RowColumnSelector from "./_RowColumnSelector"
+import _RowColumnValue from "./_RowColumnValue"
 
 // BUG: When creating new actions (without saving), multiple ifThen clauses, the inputs will sync between IfClauses
 const _IfClause = ({ index, ifClause, setIfClause }) => {
-  const handleChangeA = (value) => {
-    const ifClauseCopy = { ...ifClause }
-    ifClauseCopy["a"]["value"] = parseInt(value)
-    setIfClause(ifClauseCopy)
+  const {
+    a: rowColumnObject,
+    relationalOperator: comparisonOperator,
+    b: comparisonObject,
+  } = ifClause
+
+  const { type: rowColumnType, value: rowColumnValue } = rowColumnObject
+  const { type: comparisonType, value: comparisonValue } = comparisonObject
+
+  const setRowColumnType = (value) => {
+    setIfClause({ ...ifClause, a: { type: value, value: rowColumnValue } })
   }
-  const handleChangeB = (value) => {
-    const ifClauseCopy = { ...ifClause }
-    ifClauseCopy["b"]["value"] = value
-    setIfClause(ifClauseCopy)
+
+  const setRowColumnValue = (value) => {
+    setIfClause({ ...ifClause, a: { type: rowColumnType, value } })
   }
-  const handleRelationalOperatorChange = (id, value) => {
-    const ifClauseCopy = { ...ifClause }
-    ifClauseCopy[id] = value
-    setIfClause(ifClauseCopy)
+
+  const setComparisonOperator = (value) => {
+    setIfClause({ ...ifClause, relationalOperator: value })
+  }
+
+  const setComparisonValue = (value) => {
+    setIfClause({ ...ifClause, b: { type: comparisonType, value } })
   }
 
   return (
     <span key={index}>
-      <Action.SelectField
-        id="a"
-        options={getColumnRange()}
-        value={ifClause.a.value}
-        onChange={(e) => handleChangeA(e.target.value)}
+      <_RowColumnSelector state={{ rowColumnType, setRowColumnType }} />
+      <_RowColumnValue state={{ rowColumnValue, setRowColumnValue }} />
+      <_ComparisonOperator
+        state={{ comparisonOperator, setComparisonOperator }}
       />
-      <Action.SelectField
-        id="relationalOperator"
-        options={Object.values(relationalOperatorMapping)}
-        value={relationalOperatorMapping[ifClause.relationalOperator]}
-        onChange={(e) =>
-          handleRelationalOperatorChange(
-            "relationalOperator",
-            Object.keys(relationalOperatorMapping).find(
-              (k) => relationalOperatorMapping[k] === e.target.value
-            )
-          )
-        }
-      />
-      <Action.TextField
-        value={ifClause.b.value}
-        onChange={(e) => handleChangeB(e.target.value)}
-      />
+      <_ComparisonValue state={{ comparisonValue, setComparisonValue }} />
     </span>
   )
 }

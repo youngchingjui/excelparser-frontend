@@ -16,7 +16,7 @@ const _IfThen = ({ action, setSingleAction }) => {
   return (
     <>
       <div id="if">
-        If
+        If{" "}
         {action.if.map((ifClause, index) => (
           <Action.IfClause
             index={index}
