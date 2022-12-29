@@ -28,42 +28,49 @@ const ifThenStatement = (action, responseString) => {
   const { a: thenA, b: thenB, type: thenType } = thenStatement
   const { type: ifAType, value: ifAValue } = ifA
   const { type: ifBType, value: ifBValue } = ifB
-  const tempArray = responseString.split("\r\n")
-  const newArray = tempArray.map((row) => {
-    const rowArray = row.split(",")
-    const aValue = Number(rowArray[ifAValue - 1])
-    const bValue = Number(ifBValue)
+  const rows = responseString.split("\r\n")
 
-    // If either a value or b value are not numbers, skip
-    if (isNaN(aValue) || isNaN(bValue)) {
-      return rowArray.join(",")
-    }
+  const newRows = rows.map((row) => {
+    const rowArray = row.split(",")
+    const aValue = rowArray[ifAValue - 1]
+    const bValue = ifBValue
 
     if (relationalOperator == "equalTo") {
-      if (aValue == bValue) {
+      if (Number(aValue) == Number(bValue)) {
         rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "greaterThan") {
-      if (aValue > bValue) {
+      if (Number(aValue) > Number(bValue)) {
         rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "lessThan") {
-      if (aValue < bValue) {
+      if (Number(aValue) < Number(bValue)) {
         rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "greaterThanOrEqualTo") {
-      if (aValue >= bValue) {
+      if (Number(aValue) >= Number(bValue)) {
         rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     } else if (relationalOperator == "lessThanOrEqualTo") {
-      if (aValue <= bValue) {
+      if (Number(aValue) <= Number(bValue)) {
+        rowArray[thenB - 1] = rowArray[thenA - 1]
+      }
+    } else if (relationalOperator == "startsWith") {
+      if (aValue.startsWith(bValue)) {
+        rowArray[thenB - 1] = rowArray[thenA - 1]
+      }
+    } else if (relationalOperator == "includes") {
+      if (aValue.includes(bValue)) {
+        rowArray[thenB - 1] = rowArray[thenA - 1]
+      }
+    } else if (relationalOperator == "endsWith") {
+      if (aValue.endsWith(bValue)) {
         rowArray[thenB - 1] = rowArray[thenA - 1]
       }
     }
     return rowArray.join(",")
   })
-
-  return newArray.join("\r\n")
+  return newRows.join("\r\n")
 }
 
 const insertAColumnsAfterColumnB = (action, responseString) => {

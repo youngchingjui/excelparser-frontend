@@ -67,8 +67,8 @@ const relationalOperatorMapping = {
   lessThan: "<",
   greaterThanOrEqualTo: "=>",
   lessThanOrEqualTo: "=<",
-  beginsWith: "begins with",
-  contains: "contains",
+  startsWith: "starts with",
+  includes: "includes",
   endsWith: "ends with",
 }
 
