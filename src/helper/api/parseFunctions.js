@@ -21,12 +21,13 @@ const removeAtoBRows = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
+// TODO: aValue returns "0" if blank with Number function. Not sure if this is expected
 const ifThenStatement = (action, responseString) => {
   const tempArray = responseString.split("\r\n")
   const newArray = tempArray.map((row) => {
     const rowArray = row.split(",")
-    const aValue = rowArray[action.if[0].a.value - 1]
-    const bValue = action.if[0].b.value
+    const aValue = Number(rowArray[action.if[0].a.value - 1])
+    const bValue = Number(action.if[0].b.value)
     const relationalOperator = action.if[0].relationalOperator
 
     // If either a value or b value are not numbers, skip
