@@ -8,6 +8,7 @@ import {
   removeColumns,
   removeRows,
   setCellValue,
+  setValue,
 } from "./api/parseFunctions"
 
 const actionFunctions = {
@@ -22,6 +23,7 @@ const actionFunctions = {
     insertAColumnsAfterColumnB(action, responseString),
   setCellValue: (action, responseString) =>
     setCellValue(action, responseString),
+  setValue: (action, responseString) => setValue(action, responseString),
   applyArithmatic: (action, responseString) =>
     applyArithmatic(action, responseString),
   deleteColumnsAToB: (action, responseString) =>
@@ -49,6 +51,9 @@ const ActionDispatch = {
   ),
   setCellValue: (action, setSingleAction) => (
     <Action.SetCellValue action={action} setSingleAction={setSingleAction} />
+  ),
+  setValue: (action, setSingleAction) => (
+    <Action.SetValue action={action} setSingleAction={setSingleAction} />
   ),
   applyArithmatic: (action, setSingleAction) => (
     <Action.ApplyArithmatic action={action} setSingleAction={setSingleAction} />

@@ -100,6 +100,10 @@ const setCellValue = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
+const setValue = (action, responseString) => {
+  return responseString
+}
+
 const applyArithmatic = (action, responseString) => {
   const { operation, column, value } = action
   const tempArray = responseString.split("\r\n")
@@ -147,4 +151,5 @@ export {
   removeColumns,
   removeRows,
   setCellValue,
+  setValue,
 }

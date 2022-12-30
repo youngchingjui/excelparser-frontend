@@ -24,6 +24,41 @@
     cursor: pointer
 }
 
+.textForm {
+    border: none;
+    padding: 0;
+    border-bottom: black;
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-radius: 0;
+    text-align: center;
+    font-size: 1rem;
+    min-height: auto;
+    background-color: transparent;
+}
+
+
+.setValue > span {
+    padding: 5px;
+    display: inline-flex;
+    border: dotted;
+    border-width: 1px;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer
+}
+
+.setValue svg {transform: scale(0.7); margin-left: 3px;}
+
+.targetField > .textForm {
+    width: 2em
+}
+
+.fromField > .textForm {
+    width: 3em
+}
+
+
 #removeRows input {
     width: 5em
 }
