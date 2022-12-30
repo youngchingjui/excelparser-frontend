@@ -7,7 +7,6 @@ import {
   removeAtoBRows,
   removeColumns,
   removeRows,
-  setCellValue,
 } from "./api/parseFunctions"
 import setValue from "./api/setValue"
 
@@ -21,8 +20,6 @@ const actionFunctions = {
     ifThenStatement(action, responseString),
   insertAColumnsAfterColumnB: (action, responseString) =>
     insertAColumnsAfterColumnB(action, responseString),
-  setCellValue: (action, responseString) =>
-    setCellValue(action, responseString),
   setValue: (action, responseString) => setValue(action, responseString),
   applyArithmatic: (action, responseString) =>
     applyArithmatic(action, responseString),
@@ -48,9 +45,6 @@ const ActionDispatch = {
       action={action}
       setSingleAction={setSingleAction}
     />
-  ),
-  setCellValue: (action, setSingleAction) => (
-    <Action.SetCellValue action={action} setSingleAction={setSingleAction} />
   ),
   setValue: (action, setSingleAction) => (
     <Action.SetValue action={action} setSingleAction={setSingleAction} />

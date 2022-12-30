@@ -7,7 +7,6 @@ import _RemoveAToBRows from "./_RemoveAToBRows"
 import _RemoveColumns from "./_RemoveColumns"
 import _RemoveRows from "./_RemoveRows"
 import _SelectField from "./_SelectField"
-import _SetCellValue from "./_SetCellValue"
 import _SetValue from "./_SetValue"
 import _TextField from "./_TextField"
 import _ThenClause from "./_ThenClause"
@@ -22,7 +21,6 @@ const Action = {
   TextField: _TextField,
   SelectField: _SelectField,
   InsertAColumnsAfterColumnB: _InsertAColumnsAfterColumnB,
-  SetCellValue: _SetCellValue,
   SetValue: _SetValue,
   ApplyArithmatic: _ApplyArithmatic,
   DeleteColumnsAToB: _DeleteColumnsAToB,

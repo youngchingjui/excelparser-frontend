@@ -8,7 +8,7 @@ const _ApplyArithmatic = ({ action, setSingleAction }) => {
     setSingleAction(actionCopy)
   }
   return (
-    <div id="setCellValue">
+    <div id="applyArithmatic">
       <Action.SelectField
         options={["Add", "Subtract", "Multiply", "Divide"]}
         value={action.operation}

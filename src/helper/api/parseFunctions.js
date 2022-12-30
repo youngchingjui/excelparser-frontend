@@ -92,16 +92,6 @@ const insertAColumnsAfterColumnB = (action, responseString) => {
   return tempArray2.join("\r\n")
 }
 
-const setCellValue = (action, responseString) => {
-  const { column, row, value } = action
-  const tempArray = responseString.split("\r\n")
-  const targetRow = tempArray[row - 1]
-  const rowArray = targetRow.split(",")
-  rowArray[column - 1] = value
-  tempArray[row - 1] = rowArray
-  return tempArray.join("\r\n")
-}
-
 const applyArithmatic = (action, responseString) => {
   const { operation, column, value } = action
   const tempArray = responseString.split("\r\n")
@@ -148,5 +138,4 @@ export {
   removeAtoBRows,
   removeColumns,
   removeRows,
-  setCellValue,
 }
