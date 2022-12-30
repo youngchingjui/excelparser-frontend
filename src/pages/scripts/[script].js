@@ -15,6 +15,7 @@ import SaveScriptButton from "../../components/Buttons/SaveScriptButton"
 import ExcelTable from "../../components/ExcelTable"
 import Header from "../../components/Header"
 import ScriptTitle from "../../components/ScriptTitle"
+import { getUID } from "../../helper/functions"
 import clientPromise from "../../lib/mongodb"
 
 const ScriptPage = ({ id, actions: actionList, script }) => {
@@ -23,8 +24,6 @@ const ScriptPage = ({ id, actions: actionList, script }) => {
   const [sheets, setSheets] = useState([])
   const [activeAction, setActiveAction] = useState(0)
   const [modalShow, setModalShow] = useState(false)
-
-  const handleClose = () => setModalShow(false)
 
   const parseData = async (index) => {
     // Don't parse if no file is uploaded
@@ -49,6 +48,16 @@ const ScriptPage = ({ id, actions: actionList, script }) => {
     } catch (e) {
       console.error(e)
     }
+  }
+
+  const addAction = (actionObject) => {
+    // add action to the action list state
+    // Create a unique ID for the actionObject
+    actions.push({ ...actionObject, _id: getUID(8) })
+    setActions(actions)
+
+    // close modal
+    setModalShow(false)
   }
 
   return (
@@ -78,10 +87,9 @@ const ScriptPage = ({ id, actions: actionList, script }) => {
               </Button>
               <ActionMenuModal
                 show={modalShow}
-                handleClose={handleClose}
-                actions={actions}
-                setActions={setActions}
                 actionList={actionList}
+                addAction={addAction}
+                onHide={() => setModalShow(false)}
               />
               <SaveScriptButton id={id} actions={actions} />
               <DownloadButton

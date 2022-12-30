@@ -1,35 +1,17 @@
 import Card from "react-bootstrap/Card"
 import Modal from "react-bootstrap/Modal"
 
-import { getUID } from "../../helper/functions"
-
-const ActionMenuModal = ({
-  actions,
-  setActions,
-  handleClose,
-  actionList,
-  ...props
-}) => {
-  // add this action to the action list state
-  const addAction = (actionObject) => {
-    // Create a unique ID for the actionObject
-    actions.push({ ...actionObject, _id: getUID(8) })
-    setActions(actions)
-
-    // close modal
-    handleClose()
-  }
-
+const ActionMenuModal = ({ actionList, addAction, ...props }) => {
   return (
-    <Modal onHide={handleClose} {...props}>
+    <Modal {...props}>
       <Modal.Header closeButton>
         <Modal.Title>Add action</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {actionList.map((e, index) => {
+        {actionList.map((action, index) => {
           return (
-            <Card key={index} onClick={() => addAction(e)}>
-              <Card.Body>{e.mainText}</Card.Body>
+            <Card key={index} onClick={() => addAction(action)}>
+              <Card.Body>{action.mainText}</Card.Body>
             </Card>
           )
         })}
