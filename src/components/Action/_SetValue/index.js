@@ -37,7 +37,7 @@ const _SetValue = ({ action, setSingleAction }) => {
       ) : (
         <_EmptyField setModalShow={setTargetModalShow} />
       )}{" "}
-      to{" "}
+      to value from{" "}
       {action.from ? (
         <_ItemField
           fieldObject={action.from}

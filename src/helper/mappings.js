@@ -8,8 +8,8 @@ import {
   removeColumns,
   removeRows,
   setCellValue,
-  setValue,
 } from "./api/parseFunctions"
+import setValue from "./api/setValue"
 
 const actionFunctions = {
   removeRows: (action, responseString) => removeRows(action, responseString),

@@ -1,3 +1,5 @@
+//TODO: Move all of these functions to their own file
+
 const removeRows = (action, responseString) => {
   const tempArray = responseString.split("\r\n")
   tempArray.splice(0, action.value)
@@ -100,10 +102,6 @@ const setCellValue = (action, responseString) => {
   return tempArray.join("\r\n")
 }
 
-const setValue = (action, responseString) => {
-  return responseString
-}
-
 const applyArithmatic = (action, responseString) => {
   const { operation, column, value } = action
   const tempArray = responseString.split("\r\n")
@@ -151,5 +149,4 @@ export {
   removeColumns,
   removeRows,
   setCellValue,
-  setValue,
 }
