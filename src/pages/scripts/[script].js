@@ -15,10 +15,11 @@ import SaveScriptButton from "../../components/Buttons/SaveScriptButton"
 import ExcelTable from "../../components/ExcelTable"
 import Header from "../../components/Header"
 import ScriptTitle from "../../components/ScriptTitle"
+import actionList from "../../data/actionList.json"
 import { getUID } from "../../helper/functions"
 import clientPromise from "../../lib/mongodb"
 
-const ScriptPage = ({ id, actions: actionList, script }) => {
+const ScriptPage = ({ id, script }) => {
   const [downloadUrl, setDownloadUrl] = useState(null)
   const [actions, setActions] = useState((script && script.actions) || [])
   const [sheets, setSheets] = useState([])
@@ -122,9 +123,8 @@ export async function getStaticProps({ params: { script: scriptId } }) {
     const oid = new ObjectId(scriptId)
 
     // Get scripts
-    const [script, actions] = await Promise.all([
+    const [script] = await Promise.all([
       db.collection("scripts").findOne({ _id: oid }),
-      db.collection("actions").find().toArray(),
     ])
 
     if (!script) {
@@ -137,7 +137,6 @@ export async function getStaticProps({ params: { script: scriptId } }) {
       props: {
         id: scriptId,
         script: JSON.parse(JSON.stringify(script)),
-        actions: JSON.parse(JSON.stringify(actions)),
       },
       revalidate: 10,
     }

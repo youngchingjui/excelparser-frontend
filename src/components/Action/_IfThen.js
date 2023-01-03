@@ -28,10 +28,11 @@ const _IfThen = ({ action, setSingleAction }) => {
         ,
       </div>
       <div id="then">
-        <span>
-          {"Then "}
-          <Action.ThenClause action={action} setThenClause={setThenClause} />
-        </span>
+        Then{" "}
+        <Action.ThenClause
+          thenAction={action.then}
+          setThenClause={setThenClause}
+        />
       </div>
     </>
   )

@@ -1,36 +1,43 @@
-import { getColumnRange } from "../../helper/functions"
-import Action from "."
+import { useState } from "react"
 
-const _ThenClause = ({ action, setThenClause, ...props }) => {
-  const { then } = action
+import CloseIcon from "../../../public/static/assets/svg/close.svg"
+import actionList from "../../data/actionList.json"
+import { ActionDispatch } from "../../helper/mappings"
+import ActionMenuModal from "../ActionMenuModal"
+import EmptyField from "../Fields/EmptyField"
 
-  const setSingleForm = (key, value) => {
-    const thenClauseCopy = { ...then }
-    thenClauseCopy[key] = value
-    setThenClause(thenClauseCopy)
+const _ThenClause = ({ thenAction, setThenClause, ...props }) => {
+  const [actionMenuModalShow, setActionMenuModalShow] = useState(false)
+
+  const handleRemoveAction = (e) => {
+    e.stopPropagation()
+    setThenClause(null)
   }
 
-  if (!action) {
-    return <></>
+  const addAction = (actionObject) => {
+    setThenClause(actionObject)
+    setActionMenuModalShow(false)
   }
 
   return (
-    <span {...props}>
-      assign the value in Column
-      <Action.SelectField
-        id="then-subject"
-        options={getColumnRange()}
-        value={then.a}
-        onChange={(e) => setSingleForm("a", e.target.value)}
+    <div className="thenClause" {...props}>
+      {thenAction ? (
+        <>
+          {ActionDispatch.hasOwnProperty(thenAction.type)
+            ? ActionDispatch[thenAction.type](thenAction, setThenClause)
+            : thenAction.mainText}
+          <CloseIcon onClick={handleRemoveAction} className="closeIcon" />
+        </>
+      ) : (
+        <EmptyField setModalShow={setActionMenuModalShow} text={"Add action"} />
+      )}
+      <ActionMenuModal
+        show={actionMenuModalShow}
+        actionList={actionList}
+        addAction={addAction}
+        onHide={() => setActionMenuModalShow(false)}
       />
-      to Column
-      <Action.SelectField
-        id="then-value"
-        options={getColumnRange()}
-        value={then.b}
-        onChange={(e) => setSingleForm("b", e.target.value)}
-      />
-    </span>
+    </div>
   )
 }
 

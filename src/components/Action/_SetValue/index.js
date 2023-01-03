@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import _EmptyField from "./_EmptyField"
-import _ItemField from "./_ItemField"
+import EmptyField from "../../Fields/EmptyField"
+import ItemField from "../../Fields/ItemField"
 import _UpdateFieldModal from "./_UpdateFieldModal"
 
-const _SetValue = ({ action, setSingleAction }) => {
+const _SetValue = ({ action, setSingleAction, ...props }) => {
   const [targetModalShow, setTargetModalShow] = useState(false)
   const [fromModalShow, setFromModalShow] = useState(false)
 
@@ -19,10 +19,10 @@ const _SetValue = ({ action, setSingleAction }) => {
   ]
 
   return (
-    <div class="setValue">
+    <div className="setValue" {...props}>
       Set value in{" "}
       {action.target ? (
-        <_ItemField
+        <ItemField
           fieldObject={action.target}
           setModalShow={setTargetModalShow}
           removeField={() => setSingleAction({ ...action, target: null })}
@@ -32,14 +32,14 @@ const _SetValue = ({ action, setSingleAction }) => {
               target: { value, type: action.target.type },
             })
           }
-          class="targetField"
+          className="targetField"
         />
       ) : (
-        <_EmptyField setModalShow={setTargetModalShow} />
+        <EmptyField setModalShow={setTargetModalShow} text={"Add field"} />
       )}{" "}
       to value from{" "}
       {action.from ? (
-        <_ItemField
+        <ItemField
           fieldObject={action.from}
           setModalShow={setFromModalShow}
           removeField={() => setSingleAction({ ...action, from: null })}
@@ -49,10 +49,10 @@ const _SetValue = ({ action, setSingleAction }) => {
               from: { value, type: action.from.type },
             })
           }
-          class="fromField"
+          className="fromField"
         />
       ) : (
-        <_EmptyField setModalShow={setFromModalShow} />
+        <EmptyField setModalShow={setFromModalShow} text={"Add field"} />
       )}
       <_UpdateFieldModal
         handleClose={() => setTargetModalShow(false)}
