@@ -1,8 +1,8 @@
 import Form from "react-bootstrap/Form"
 
-import CloseIcon from "../../../public/static/assets/svg/close.svg"
+import CloseIcon from "../../../../public/static/assets/svg/close.svg"
 
-const ItemField = ({
+const _ItemField = ({
   fieldObject,
   removeFromField,
   removeField,
@@ -26,6 +26,7 @@ const ItemField = ({
         type="text"
         className="textForm"
         value={value}
+        {...props}
         onClick={(e) => e.stopPropagation()}
         onChange={(e) => setValue(e.target.value)}
       />
@@ -34,4 +35,4 @@ const ItemField = ({
   )
 }
 
-export default ItemField
+export default _ItemField

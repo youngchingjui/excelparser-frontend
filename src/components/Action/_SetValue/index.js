@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import EmptyField from "../../Fields/EmptyField"
-import ItemField from "../../Fields/ItemField"
+import _EmptyField from "./_EmptyField"
+import _ItemField from "./_ItemField"
 import _UpdateFieldModal from "./_UpdateFieldModal"
 
-const _SetValue = ({ action, setSingleAction, ...props }) => {
+const _SetValue = ({ action, setSingleAction }) => {
   const [targetModalShow, setTargetModalShow] = useState(false)
   const [fromModalShow, setFromModalShow] = useState(false)
 
@@ -19,10 +19,10 @@ const _SetValue = ({ action, setSingleAction, ...props }) => {
   ]
 
   return (
-    <div className="setValue" {...props}>
+    <div class="setValue">
       Set value in{" "}
       {action.target ? (
-        <ItemField
+        <_ItemField
           fieldObject={action.target}
           setModalShow={setTargetModalShow}
           removeField={() => setSingleAction({ ...action, target: null })}
@@ -32,14 +32,14 @@ const _SetValue = ({ action, setSingleAction, ...props }) => {
               target: { value, type: action.target.type },
             })
           }
-          className="targetField"
+          class="targetField"
         />
       ) : (
-        <EmptyField setModalShow={setTargetModalShow} text={"Add field"} />
+        <_EmptyField setModalShow={setTargetModalShow} />
       )}{" "}
       to value from{" "}
       {action.from ? (
-        <ItemField
+        <_ItemField
           fieldObject={action.from}
           setModalShow={setFromModalShow}
           removeField={() => setSingleAction({ ...action, from: null })}
@@ -49,10 +49,10 @@ const _SetValue = ({ action, setSingleAction, ...props }) => {
               from: { value, type: action.from.type },
             })
           }
-          className="fromField"
+          class="fromField"
         />
       ) : (
-        <EmptyField setModalShow={setFromModalShow} text={"Add field"} />
+        <_EmptyField setModalShow={setFromModalShow} />
       )}
       <_UpdateFieldModal
         handleClose={() => setTargetModalShow(false)}

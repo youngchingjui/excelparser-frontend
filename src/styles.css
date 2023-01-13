@@ -58,20 +58,6 @@
     width: 3em
 }
 
-.thenClause {
-    border: dotted;
-    border-width: 1px;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-}
-
-.thenClause > svg {transform: scale(0.7); margin-left: 3px;}
-
-.emptyField {cursor: pointer}
-
-.closeIcon {cursor: pointer}
 
 #removeRows input {
     width: 5em
@@ -96,8 +82,6 @@
 #deleteColumnsAToB input {
     width: 5em
 }
-
-#then {display: flex}
 
 section {margin-top: 4em;}
 
